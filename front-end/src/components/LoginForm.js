@@ -29,8 +29,8 @@ const LoginForm = () => {
                     {/* <!-- Form --> */}
                     <div class='px-20'>
                         <form class='border-none flex flex-col justify-center align-center mt-16 '>
-                            <input class='outline-none rounded p-2' autocapitalize="off" autocorrect="off" maxlength="75" name="username" type="text"  value="" placeholder="Username"/> <br/>
-                            <input class='outline-none rounded p-2' type="password" name="password" value='' placeholder="Password"/><br/>
+                            <input class='outline-none rounded p-2' autoCapitalize="off" autoCorrect="off" maxLength="75" name="username" type="text"   placeholder="Username"/> <br/>
+                            <input class='outline-none rounded p-2' type="password" name="password"  placeholder="Password"/><br/>
                         </form>
 
                         <button class='p-6 w-full bg-yellow-400 rounded-lg font-semibold text-yellow-800 hover:bg-yellow-300' href='../index.html'> Login </button>

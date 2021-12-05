@@ -33,15 +33,16 @@ const SignupForm = () => {
 
                         {/* <!-- First name and last name --> */}
                         <div class='md:flex md:justify-evenly md:space-x-3 md:mb-2 ' >
-                            <input class='rounded p-2 mb-4 w-full border-2 focus:outline-none focus:border-red-500' autocapitalize="off" autocorrect="off" maxlength="75" name="first_name" type="text"  value="" placeholder="First Name"/> 
-                            <input class='rounded p-2 mb-4 w-full outline-none' autocapitalize="off" autocorrect="off" maxlength="75" name="last_name" type="text"  value="" placeholder="Last Name"/> 
+                            <input class='rounded p-2 mb-4 w-full border-2 focus:outline-none focus:border-red-500' autoCapitalize="off" autoCorrect="off" maxLength="75" name="first_name" type="text"  placeholder="First Name"/> 
+                            <input class='rounded p-2 mb-4 w-full outline-none' autoCapitalize="off" autoCorrect="off" maxLength="75" name="last_name" type="text"  placeholder="Last Name"/> 
                         </div>
 
                         <input class='rounded p-2 border-2 focus:outline-none focus:border-red-500 ' type='date' name='DOB'/><br/>
-                        <input class='rounded p-2 border-2 focus:outline-none focus:border-red-500 ' autocapitalize="off" autocorrect="off" maxlength="75" name="username" type="text"  value="" placeholder="Username"/> <br/>
-                        <input class='rounded p-2 border-2 focus:outline-none focus:border-red-500' autocapitalize="off" autocorrect="off" maxlength="75" name="email" type="text"  value="" placeholder="Email"/> <br/>
-                        <input class='rounded p-2 border-2 focus:outline-none focus:border-red-500' type="password" name="password" value='' placeholder="Password"/><br/>
-                        <input class='rounded p-2 border-2 focus:outline-none focus:border-red-500' type="password" name="password" value='' placeholder="Retype password"/><br/>
+                        <input class='rounded p-2 border-2 focus:outline-none focus:border-red-500 ' autoCapitalize="off" autoCorrect="off" maxLength="75" name="username" type="text"  placeholder="Username"/> <br/>
+                        <input class='rounded p-2 border-2 focus:outline-none focus:border-red-500' autoCapitalize="off" autoCorrect="off" maxLength="75" name="email" type="text"  placeholder="Email"/> <br/>
+                        <input class='rounded p-2 border-2 focus:outline-none focus:border-red-500' autoCapitalize="off" autoCorrect="off" maxLength="75" name="location" type="text"  placeholder="Location"/> <br/>
+                        <input class='rounded p-2 border-2 focus:outline-none focus:border-red-500' type="password" name="password" placeholder="Password"/><br/>
+                        <input class='rounded p-2 border-2 focus:outline-none focus:border-red-500' type="password" name="password" placeholder="Retype password"/><br/>
 
                         {/* <!-- Terms and conditions checkbox --> */}
                         <div class="flex space-x-2">
