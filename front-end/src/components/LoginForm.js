@@ -1,10 +1,53 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
-
+import React,{useState} from 'react'
+import axios from 'axios'
+import { Link,useNavigate } from 'react-router-dom';
 import companyLogo from '../assets/images/Suyati-logo-01.svg';
 import bookShelf from '../assets/images/login-page-bookshelf.jpg';
 
+
+
 const LoginForm = () => {
+    let navigate=useNavigate();
+    const[formdata,setFormdata] = useState({
+        username:"",
+        password:""
+    });
+    console.log(formdata)
+
+    const { username, password } = formdata;
+    const onChange = (e) =>
+    setFormdata({ ...formdata, [e.target.name]: e.target.value });
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        login(username, password);
+      };
+    
+     const login = (username, password) => {
+        const url='http://127.0.0.1:8000/api/login/';
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+    
+        const body = JSON.stringify({ username, password });
+        
+    
+        try {
+            axios.post(url, body, config).then((res)=>{
+                localStorage.setItem('token',res.data.token)
+                navigate("/")
+                
+            })
+        
+        } catch (error) {
+            console.log('post error')
+        }
+    
+    };
+    
+    
     return (
     <>
         <div class=" flex sm:flex-col justify-center align-center">
@@ -28,12 +71,19 @@ const LoginForm = () => {
 
                     {/* <!-- Form --> */}
                     <div class='px-20'>
-                        <form class='border-none flex flex-col justify-center align-center mt-16 '>
-                            <input class='outline-none rounded p-2' autoCapitalize="off" autoCorrect="off" maxLength="75" name="username" type="text"   placeholder="Username"/> <br/>
-                            <input class='outline-none rounded p-2' type="password" name="password"  placeholder="Password"/><br/>
+                        <form onSubmit={(e) => onSubmit(e)} class='border-none flex flex-col justify-center align-center mt-16 '>
+                            <input class='outline-none rounded p-2' autoCapitalize="off"
+                             autoCorrect="off" maxLength="75" name="username" value={username} type="text" 
+                              onChange={(e) => onChange(e)}
+                               placeholder="Username"/> <br/>
+                            <input class='outline-none rounded p-2' type="password" 
+                             name="password" value={password} onChange={(e) => onChange(e)}
+                             placeholder="Password"/><br/>
+                             <button class='p-6 w-full bg-yellow-400 rounded-lg font-semibold text-yellow-800 hover:bg-yellow-300' href='../index.html' 
+                              type='submit'> Login </button>
                         </form>
 
-                        <button class='p-6 w-full bg-yellow-400 rounded-lg font-semibold text-yellow-800 hover:bg-yellow-300' href='../index.html'> Login </button>
+                        
 
                     </div>
 

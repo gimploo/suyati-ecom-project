@@ -4,7 +4,13 @@ import { Link } from 'react-router-dom';
 
 import companyLogo from '../assets/images/Suyati-logo-01.svg';
 
-const Navbar = ({isUserLoggedIn}) => {
+const Navbar = ({isAuthenticated}) => {
+    
+
+    const logout=()=>{
+        localStorage.removeItem('token')
+        
+    }
 
     const LeftNavbar = () => {
         return (
@@ -17,8 +23,9 @@ const Navbar = ({isUserLoggedIn}) => {
     }
 
     const RightNavbar = () => {
+        
 
-        if (!isUserLoggedIn) {
+        if (!isAuthenticated) {
 
             return (
                 <div class='flex space-x-2 justify-evenly'>
@@ -39,8 +46,13 @@ const Navbar = ({isUserLoggedIn}) => {
             return (
                 <div class='flex space-x-2 justify-evenly'>
                     <Link to='/dashboard' class='px-10 py-5 text-blue-800 hover:text-blue-400 font-semibold rounded-3xl drop-shadow' >
-                        Username 
+                        Username
                     </Link>
+                    <button 
+                    onClick={logout()} 
+                     class='px-10 py-5 text-blue-800 hover:text-blue-400 font-semibold rounded-3xl drop-shadow' >
+                        logout
+                    </button>
                 </div>
 
             )

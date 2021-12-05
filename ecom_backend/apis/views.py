@@ -39,3 +39,10 @@ class LoginAPI(KnoxLoginView):
         user = serializer.validated_data['user']
         login(request, user)
         return super(LoginAPI, self).post(request, format=None)
+        
+#geting user info
+@api_view(['GET'])
+def userinfo(request):
+    user = request.user
+    serializer = UserSerializer(user)
+    return Response(serializer.data)
