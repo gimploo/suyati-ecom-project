@@ -2,9 +2,9 @@ import { React, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 
-import companyLogo from '../assets/images/Suyati-logo-01.svg';
+import COMPANYLOGO from '../assets/images/Suyati-logo-01.svg';
 
-const Navbar = ({isUserLoggedIn}) => {
+const Navbar = () => {
 
     let  user, logoutUser  = useContext(AuthContext);
 
@@ -12,7 +12,7 @@ const Navbar = ({isUserLoggedIn}) => {
         return (
             <Link to='/'>
                 <div class='w-40 h-20 cursor-pointer' >
-                    <img src={companyLogo} alt='suyati-company-logo'/>
+                    <img src={COMPANYLOGO} alt='suyati-company-logo'/>
                 </div>
             </Link>
         );

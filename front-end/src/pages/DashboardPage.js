@@ -4,10 +4,10 @@ import AuthContext from '../context/AuthContext';
 
 const DashboardPage = () => {
 
-    let name = useContext(AuthContext);
+    let { user } = useContext(AuthContext);
 
     return (
-        <h1> Dashboard of {name} </h1>
+        <h1> Dashboard of {user.username} </h1>
     );
 }
 

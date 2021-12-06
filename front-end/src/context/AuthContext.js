@@ -17,7 +17,9 @@ export const AuthProvider = ({children}) => {
     const history = useHistory()
 
     let loginUser = async (e )=> {
+
         e.preventDefault()
+
         let response = await fetch('http://127.0.0.1:8000/api/token/', {
             method:'POST',
             headers:{
@@ -25,6 +27,7 @@ export const AuthProvider = ({children}) => {
             },
             body:JSON.stringify({'username':e.target.username.value, 'password':e.target.password.value})
         })
+
         let data = await response.json()
 
         // Server is returning a 401 response code ? 
@@ -35,8 +38,8 @@ export const AuthProvider = ({children}) => {
             setUser(jwt_decode(data.access))
             localStorage.setItem('authTokens', JSON.stringify(data))
             history.push('/')
-        }else{
-            alert('Something went wrong!')
+        } else {
+            alert('Something went wrong!', response.status)
         }
     }
 
