@@ -1,10 +1,12 @@
-import React from 'react';
+import { React, useContext } from 'react';
 import { Link } from 'react-router-dom';
-
+import AuthContext from '../context/AuthContext';
 
 import companyLogo from '../assets/images/Suyati-logo-01.svg';
 
 const Navbar = ({isUserLoggedIn}) => {
+
+    let  user, logoutUser  = useContext(AuthContext);
 
     const LeftNavbar = () => {
         return (
@@ -18,7 +20,7 @@ const Navbar = ({isUserLoggedIn}) => {
 
     const RightNavbar = () => {
 
-        if (!isUserLoggedIn) {
+        if (!user) {
 
             return (
                 <div class='flex space-x-2 justify-evenly'>
@@ -37,9 +39,15 @@ const Navbar = ({isUserLoggedIn}) => {
         } else {
 
             return (
+
                 <div class='flex space-x-2 justify-evenly'>
                     <Link to='/dashboard' class='px-10 py-5 text-blue-800 hover:text-blue-400 font-semibold rounded-3xl drop-shadow' >
-                        Username 
+                        {user.username} 
+                    </Link>
+                    <Link to='/signup'>
+                        <button onClick={logoutUser} class='mt-1 mr-2 px-8 py-4 text-blue-100 hover:bg-blue-500 font-semibold bg-blue-700 rounded-3xl drop-shadow' > 
+                            Logout
+                        </button>
                     </Link>
                 </div>
 

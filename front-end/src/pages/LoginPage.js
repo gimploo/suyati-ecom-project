@@ -1,10 +1,15 @@
-import React from 'react'
+import { React, useContext } from 'react'
 import { Link } from 'react-router-dom';
+import AuthContext from '../context/AuthContext'
 
 import companyLogo from '../assets/images/Suyati-logo-01.svg';
 import bookShelf from '../assets/images/login-page-bookshelf.jpg';
 
-const LoginForm = () => {
+const LoginPage = () => {
+
+    let { loginUser } = useContext(AuthContext)
+
+
     return (
     <>
         <div class=" flex sm:flex-col justify-center align-center">
@@ -28,12 +33,12 @@ const LoginForm = () => {
 
                     {/* <!-- Form --> */}
                     <div class='px-20'>
-                        <form class='border-none flex flex-col justify-center align-center mt-16 '>
+                        <form onSubmit={loginUser} class='border-none flex flex-col justify-center align-center mt-16 '>
                             <input class='outline-none rounded p-2' autoCapitalize="off" autoCorrect="off" maxLength="75" name="username" type="text"   placeholder="Username"/> <br/>
                             <input class='outline-none rounded p-2' type="password" name="password"  placeholder="Password"/><br/>
+                            <input type='submit' class='p-6 w-full bg-yellow-400 rounded-lg font-semibold text-yellow-800 hover:bg-yellow-300' value='Login'/> 
                         </form>
 
-                        <button class='p-6 w-full bg-yellow-400 rounded-lg font-semibold text-yellow-800 hover:bg-yellow-300' href='../index.html'> Login </button>
 
                     </div>
 
@@ -61,4 +66,4 @@ const LoginForm = () => {
     );
 }
 
-export default LoginForm;
+export default LoginPage;

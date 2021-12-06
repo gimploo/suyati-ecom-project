@@ -1,29 +1,31 @@
-import './App.css';
-import { useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { BrowserRouter,  Route } from 'react-router-dom';
+import AuthenticatedRoute from './utils/AutheticatedRoute.js';
 
-import Navbar from './components/Navbar.js';
-import Login from './components/LoginForm.js';
-import Signup from './components/SignupForm.js';
+import { AuthProvider } from './context/AuthContext'
+
+import Navbar from './components/Navbar';
+import LoginPage from './pages/LoginPage';
+import HomePage from './pages/HomePage';
+import SignupPage from './pages/SignupPage';
+import DashboardPage from './pages/DashboardPage';
 import Footer from './components/Footer';
 
-function App() {
-
-	// State to check if the user is logged in
-	const [userLoggedIn, setUserLoggedIn] = useState(() => { 
-		return false; // change this value to trigger the navbar thing 
-	});
+const App = () => {
 
   return (
 	<>
-		<Navbar isUserLoggedIn={userLoggedIn}/>
-		<div class=' bg-gradient-to-br from-indigo-500 to-indigo-800' >
-		<Routes>
-			<Route path='/login'  element={<Login/>} />
-			<Route path='/signup' element={<Signup/>} />
-		</Routes>
-		</div>
-		<Footer />
+	<div class=' bg-gradient-to-br from-indigo-500 to-indigo-800' >
+		<BrowserRouter>
+			<AuthProvider>
+				<Navbar />
+				<Route path='/' component={HomePage} exact/>
+				<Route path='/login' component={LoginPage} />
+				<Route path='/signup' component={SignupPage} />
+				<Route path='/dashboard' component={DashboardPage} />
+			</AuthProvider>
+			<Footer />
+		</BrowserRouter>
+	</div>
 	</>
   );
 }

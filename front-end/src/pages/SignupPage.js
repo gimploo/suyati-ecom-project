@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import companyLogo from '../assets/images/Suyati-logo-01.svg';
 import bookShelf from '../assets/images/login-page-bookshelf.jpg';
 
-const SignupForm = () => {
+const SignupPage = () => {
 
     return (
     <>
@@ -29,6 +29,7 @@ const SignupForm = () => {
 
                 {/* <!-- Form --> */}
                 <div class='md:py-10 px-2 md:px-20'>
+
                     <form class='flex flex-col justify-center align-center mt-8 '>
 
                         {/* <!-- First name and last name --> */}
@@ -53,10 +54,10 @@ const SignupForm = () => {
                         </div>
 
                         <br/>
-                    </form>
 
+                        <input class=' text-center p-6 w-full bg-yellow-300 rounded-lg font-semibold text-yellow-700 hover:bg-yellow-400' type='submit' value='Signup'/> 
+                    </form>
                     
-                    <button class='p-6 w-full bg-yellow-300 rounded-lg font-semibold text-yellow-700 hover:bg-yellow-400' href=''> Signup </button>
 
                 </div>
 
@@ -88,4 +89,4 @@ const SignupForm = () => {
     );
 }
 
-export default SignupForm;
+export default SignupPage;
