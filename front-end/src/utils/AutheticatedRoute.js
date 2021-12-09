@@ -1,4 +1,4 @@
-import { Route, Link } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import { useContext } from 'react';
 import AuthContext from '../context/AuthContext';
 
@@ -6,10 +6,10 @@ import AuthContext from '../context/AuthContext';
 
 const AuthenticatedRoute = ({children, ...rest}) => {
 
-    let isUserAuthenticated = false;
+    let { user } = useContext(AuthContext);
 
     return (
-        <Route {...rest}>{!isUserAuthenticated ? <Link to='/login' /> : children} </Route>
+        <Route {...rest}>{ !user ? <Redirect to='/login' /> : children } </Route>
     );
 }
 

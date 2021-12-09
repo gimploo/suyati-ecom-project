@@ -20,7 +20,7 @@ const Navbar = () => {
 
     const RightNavbar = () => {
 
-        if (user) {
+        if (!user) {
 
             return (
                 <div class='flex space-x-2 justify-evenly'>
