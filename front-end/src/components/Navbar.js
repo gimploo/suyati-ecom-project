@@ -6,7 +6,7 @@ import COMPANYLOGO from '../assets/images/Suyati-logo-01.svg';
 
 const Navbar = () => {
 
-    let  user, logoutUser  = useContext(AuthContext);
+    let  { user, logoutUser }  = useContext(AuthContext);
 
     const LeftNavbar = () => {
         return (
@@ -20,7 +20,7 @@ const Navbar = () => {
 
     const RightNavbar = () => {
 
-        if (!user) {
+        if (user) {
 
             return (
                 <div class='flex space-x-2 justify-evenly'>
@@ -42,9 +42,9 @@ const Navbar = () => {
 
                 <div class='flex space-x-2 justify-evenly'>
                     <Link to='/dashboard' class='px-10 py-5 text-blue-800 hover:text-blue-400 font-semibold rounded-3xl drop-shadow' >
-                        {user.username} 
+                        {user.username}
                     </Link>
-                    <Link to='/signup'>
+                    <Link to='/'>
                         <button onClick={logoutUser} class='mt-1 mr-2 px-8 py-4 text-blue-100 hover:bg-blue-500 font-semibold bg-blue-700 rounded-3xl drop-shadow' > 
                             Logout
                         </button>

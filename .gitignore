@@ -4,3 +4,6 @@ old-front-end/node_modules
 __pycache__
 *.pyc
 *.pyc
+data/Users.csv
+data/Books.csv
+data/Ratings.csv

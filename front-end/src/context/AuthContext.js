@@ -58,16 +58,27 @@ export const AuthProvider = ({children}) => {
 
 
 
-    let contextData = {
-        user:user,
-        authTokens:authTokens,
-        loginUser:loginUser,
-        logoutUser:logoutUser,
+    // let contextData = {
+    //     user:user,
+    //     authTokens:authTokens,
+    //     loginUser:loginUser,
+    //     logoutUser:logoutUser,
+    // }
+
+    let dummyContextData = {
+        user: {
+            userid: 100,
+            username: "Libin",
+            location: "erfurt, thueringen, germany",
+            age: "19"
+        },
+        loginUser: loginUser,
+        logoutUser: logoutUser
     }
 
 
     return(
-        <AuthContext.Provider value={contextData} >
+        <AuthContext.Provider value={dummyContextData} >
             {loading ? "Page is loading" : children}
         </AuthContext.Provider>
     )
