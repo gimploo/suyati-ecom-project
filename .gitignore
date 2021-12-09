@@ -1,3 +1,6 @@
 
 front-end/node_modules
 old-front-end/node_modules
+__pycache__
+*.pyc
+*.pyc
