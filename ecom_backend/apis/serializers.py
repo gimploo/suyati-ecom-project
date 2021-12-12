@@ -1,20 +1,21 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
+from .models import *
 from rest_framework.settings import api_settings
 
 # User Serializer
 class UserSerializer(serializers.ModelSerializer):
+  
     class Meta:
-        model = User
-        fields = ('id', 'username', 'email')
+        model = userdata
+        optional_fields = ['Age']
+        fields = ('Location','id')
 
-#Register Serializers
-class RegisterSerializer(serializers.ModelSerializer):
+class RatingSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ('id', 'username', 'email', 'password')
-        extra_kwargs = {'password': {'write_only': True}}
+        model=Rating
+        fields=('isbn','rating')
 
-    def create(self, validated_data):
-        user = User.objects.create_user(validated_data['username'], validated_data['email'], validated_data['password'])
-        return user
+class BookSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Books
+        fields='__all__'

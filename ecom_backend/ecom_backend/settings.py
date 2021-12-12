@@ -9,13 +9,10 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 from rest_framework.settings import api_settings
 from decouple import config
-REST_KNOX = {
-  'TOKEN_TTL':None,
-}
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,6 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY=config('SECRET_KEY')
+# SECRET_KEY='7_cvzbkdjrtq6ak6qsw_jmeo2c3k9qnu(-a7(1tld-4v!tgh$e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -54,7 +52,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'apis',
     'rest_framework',
-    'knox',
+ 
     
 
 ]
@@ -135,16 +133,12 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-    'knox.auth.TokenAuthentication',
-    
-    ]
-}
+
 
 STATIC_URL = '/static/'
