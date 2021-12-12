@@ -52,38 +52,3 @@ def book(request,pk):
         return Response('Book Not Avilable in database') 
 
 
-# CSV_BOOKS_PATH='../data/Books.csv'
-# def upload_all_records_to_Book(request):
-#     with open(CSV_BOOKS_PATH) as f:
-#         reader = csv.reader(f)
-#         next(reader)
-
-#         print("[!] Deleting all records in Books")
-#         Books.objects.all().delete()
-
-#         print("[*] Inserting new records into Books ....")
-#         for row in reader:
-#             print("[!] New record:", row)
-
-#             isbn                = row[0]
-#             title               = row[1]
-#             author              = row[2]
-#             year_of_publication = row[3]
-#             publisher           = row[4]
-#             img_url_s           = row[5]
-#             img_url_m           = row[6]
-#             img_url_l           = row[7]
-
-#             Books(
-#                 ISBN = isbn, 
-#                 Book_title = title, 
-#                 Book_Author = author, 
-#                 Year_of_Publication = year_of_publication, 
-#                 Publisher = publisher, 
-#                 img_url_S = img_url_s, 
-#                 img_url_M = img_url_m, 
-#                 img_url_L = img_url_l
-#             ).save()
-#             print("[!] Record successfully added!")
-
-#     return HttpResponse("[!] All records added!")
