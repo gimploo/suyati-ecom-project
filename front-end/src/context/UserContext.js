@@ -1,5 +1,4 @@
-import { createContext, useState, useEffect } from 'react';
-import jwt_decode from "jwt-decode";
+import { createContext, useState } from 'react';
 import { useHistory } from 'react-router-dom'
 
 
@@ -11,8 +10,7 @@ export default UserContext;
 
 export const UserProvider = ({children}) => {
 
-    let [authTokens, setAuthTokens] = useState(()=> localStorage.getItem('token'))
-    let [user, setUser]             = useState(()=> localStorage.getItem('token'))
+    let [user, setUser]             = useState(null)
     let [loading, setLoading]       = useState(true)
 
     const history = useHistory()
@@ -24,13 +22,11 @@ export const UserProvider = ({children}) => {
         let userid = e.target.userid.value
         let response = await fetch(`127.0.0.1:8000/api/login/${userid}/`)
 
+        console.log(response)
         let data = await response.json()
-        console.log(data)
 
         if(response.status === 200){
-            setAuthTokens(data)
             setUser(data.access)
-            localStorage.setItem('token', data)
             history.push('/')
         } else {
             alert('Something went wrong!', response.status)
@@ -45,16 +41,13 @@ export const UserProvider = ({children}) => {
 
 
     let logoutUser = () => {
-        setAuthTokens(null)
         setUser(null)
-        localStorage.removeItem('token')
         history.push('/login')
     }
 
 
     let contextData = {
         user:       user,
-        authTokens: authTokens,
         loginUser:  loginUser,
         logoutUser: logoutUser,
     }
