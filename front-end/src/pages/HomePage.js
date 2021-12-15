@@ -1,10 +1,10 @@
 import React, {useState, useEffect, useContext} from 'react'
-import AuthContext from '../context/AuthContext'
+import UserContext from '../context/UserContext';
 
 
 const HomePage = () => {
 
-    let {user} = useContext(AuthContext);
+    let {user} = useContext(UserContext);
 
 
     return (

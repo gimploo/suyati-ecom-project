@@ -1,7 +1,7 @@
 import { BrowserRouter,  Route } from 'react-router-dom';
 import AuthenticatedRoute from './utils/AutheticatedRoute.js';
 
-import { AuthProvider } from './context/AuthContext'
+import { UserProvider } from './context/UserContext.js';
 
 import Navbar from './components/Navbar';
 import LoginPage from './pages/LoginPage';
@@ -15,13 +15,13 @@ const App = () => {
   return (
 	<div class=' bg-gradient-to-br from-indigo-500 to-indigo-800' >
 		<BrowserRouter>
-			<AuthProvider>
+			<UserProvider>
 				<Navbar />
 				<AuthenticatedRoute path='/' component={HomePage} exact/>
 				<Route path='/login' component={LoginPage} />
 				<Route path='/signup' component={SignupPage} />
 				<Route path='/dashboard' component={DashboardPage} />
-			</AuthProvider>
+			</UserProvider>
 			<Footer />
 		</BrowserRouter>
 	</div>

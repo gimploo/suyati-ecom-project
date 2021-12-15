@@ -1,12 +1,12 @@
 import { React, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import AuthContext from '../context/AuthContext';
 
 import COMPANYLOGO from '../assets/images/Suyati-logo-01.svg';
+import UserContext from '../context/UserContext';
 
 const Navbar = () => {
 
-    let  { user, logoutUser }  = useContext(AuthContext);
+    let  { user, logoutUser }  = useContext(UserContext);
 
     const LeftNavbar = () => {
         return (
@@ -42,7 +42,7 @@ const Navbar = () => {
 
                 <div class='flex space-x-2 justify-evenly'>
                     <Link to='/dashboard' class='px-10 py-5 text-blue-800 hover:text-blue-400 font-semibold rounded-3xl drop-shadow' >
-                        {user.username}
+                        {user.userid}
                     </Link>
                     <Link to='/'>
                         <button onClick={logoutUser} class='mt-1 mr-2 px-8 py-4 text-blue-100 hover:bg-blue-500 font-semibold bg-blue-700 rounded-3xl drop-shadow' > 

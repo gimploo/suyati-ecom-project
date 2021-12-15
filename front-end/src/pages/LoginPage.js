@@ -1,13 +1,13 @@
 import { React, useContext } from 'react'
 import { Link } from 'react-router-dom';
-import AuthContext from '../context/AuthContext'
 
 import companyLogo from '../assets/images/Suyati-logo-01.svg';
 import bookShelf from '../assets/images/login-page-bookshelf.jpg';
+import UserContext from '../context/UserContext';
 
 const LoginPage = () => {
 
-    let { loginUser } = useContext(AuthContext)
+    let { loginUser } = useContext(UserContext)
 
 
     return (
@@ -34,8 +34,7 @@ const LoginPage = () => {
                     {/* <!-- Form --> */}
                     <div class='px-20'>
                         <form onSubmit={loginUser} class='border-none flex flex-col justify-center align-center mt-16 '>
-                            <input class='outline-none rounded p-2' autoCapitalize="off" autoCorrect="off" maxLength="75" name="username" type="text"   placeholder="Username"/> <br/>
-                            <input class='outline-none rounded p-2' type="password" name="password"  placeholder="Password"/><br/>
+                            <input class='outline-none rounded p-2' type="number" min='0' name="userid"  placeholder="User ID"/><br/>
                             <input type='submit' class='p-6 w-full bg-yellow-400 rounded-lg font-semibold text-yellow-800 hover:bg-yellow-300' value='Login'/> 
                         </form>
 
