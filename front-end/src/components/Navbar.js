@@ -10,7 +10,7 @@ const Navbar = () => {
 
     const LeftNavbar = () => {
         return (
-            <Link to='/home'>
+            <Link to='/'>
                 <div class='w-40 h-20 cursor-pointer' >
                     <img src={COMPANYLOGO} alt='suyati-company-logo'/>
                 </div>
@@ -25,15 +25,15 @@ const Navbar = () => {
             return (
                 <div class='flex space-x-2 justify-evenly'>
                     <Link to='/login'>
-                        <button class='px-10 py-5 text-blue-800 hover:text-blue-400 font-semibold rounded-3xl drop-shadow' > 
+                        <button class='mt-1 mr-4 px-8 py-4 text-blue-100 hover:bg-blue-600 font-semibold bg-blue-700 rounded-3xl drop-shadow' > 
                             Login 
                         </button>
                     </Link>
-                    <Link to='/signup'>
+                    {/* <Link to='/signup'>
                         <button class='mt-1 mr-2 px-8 py-4 text-blue-100 hover:bg-blue-500 font-semibold bg-blue-700 rounded-3xl drop-shadow' > 
                             Signup
                         </button>
-                    </Link>
+                    </Link> */}
                 </div>
             );
         } else {
@@ -42,7 +42,7 @@ const Navbar = () => {
 
                 <div class='flex space-x-2 justify-evenly'>
                     <Link to='/dashboard' class='px-10 py-5 text-blue-800 hover:text-blue-400 font-semibold rounded-3xl drop-shadow' >
-                       User ID <span>{user.id}</span>
+                       user {user.id}
                     </Link>
                     <Link to=''>
                         <button onClick={logoutUser} class='mt-1 mr-2 px-8 py-4 text-blue-100 hover:bg-blue-500 font-semibold bg-blue-700 rounded-3xl drop-shadow' > 

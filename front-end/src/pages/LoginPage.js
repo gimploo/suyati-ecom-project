@@ -1,5 +1,4 @@
 import { React, useContext } from "react";
-import { Link } from "react-router-dom";
 
 import companyLogo from "../assets/images/Suyati-logo-01.svg";
 import bookShelf from "../assets/images/login-page-bookshelf.jpg";
@@ -60,14 +59,10 @@ const LoginPage = () => {
             {/* <!-- Signup --> */}
             <div class="mb-8">
               <p class="text-center font-semibold text-gray-800">
-                {" "}
                 Don't have an account?
-                <Link to="">
-                  <button class="p-1 mb-4 font-bold text-indigo-500 hover:text-indigo-400">
-                    {" "}
-                    Contact Admin{" "}
-                  </button>
-                </Link>
+                <button class="p-1 mb-4 font-bold text-indigo-500 hover:text-indigo-400">
+                  contact admin
+                </button>
               </p>
             </div>
           </div>

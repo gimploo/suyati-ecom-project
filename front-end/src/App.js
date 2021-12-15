@@ -1,5 +1,4 @@
 import { BrowserRouter,  Route } from 'react-router-dom';
-import AuthenticatedRoute from './utils/AutheticatedRoute.js';
 
 import { UserProvider } from './context/UserContext.js';
 
@@ -17,8 +16,7 @@ const App = () => {
 		<BrowserRouter>
 			<UserProvider>
 				<Navbar />
-				<Route path='/' component={LoginPage} exact/>
-				<Route path='/home' component={HomePage} />
+				<Route path='/' component={HomePage} exact />
 				<Route path='/login' component={LoginPage} />
 				<Route path='/signup' component={SignupPage} />
 				<Route path='/dashboard' component={DashboardPage} />
