@@ -10,7 +10,7 @@ const Navbar = () => {
 
     const LeftNavbar = () => {
         return (
-            <Link to='/'>
+            <Link to='/home'>
                 <div class='w-40 h-20 cursor-pointer' >
                     <img src={COMPANYLOGO} alt='suyati-company-logo'/>
                 </div>
@@ -42,9 +42,9 @@ const Navbar = () => {
 
                 <div class='flex space-x-2 justify-evenly'>
                     <Link to='/dashboard' class='px-10 py-5 text-blue-800 hover:text-blue-400 font-semibold rounded-3xl drop-shadow' >
-                        {user.userid}
+                       User ID <span>{user.id}</span>
                     </Link>
-                    <Link to='/'>
+                    <Link to=''>
                         <button onClick={logoutUser} class='mt-1 mr-2 px-8 py-4 text-blue-100 hover:bg-blue-500 font-semibold bg-blue-700 rounded-3xl drop-shadow' > 
                             Logout
                         </button>

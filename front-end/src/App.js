@@ -17,7 +17,8 @@ const App = () => {
 		<BrowserRouter>
 			<UserProvider>
 				<Navbar />
-				<AuthenticatedRoute path='/' component={HomePage} exact/>
+				<Route path='/' component={LoginPage} exact/>
+				<Route path='/home' component={HomePage} />
 				<Route path='/login' component={LoginPage} />
 				<Route path='/signup' component={SignupPage} />
 				<Route path='/dashboard' component={DashboardPage} />
