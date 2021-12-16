@@ -58,6 +58,7 @@ def book(request,pk):
     except:
         return Response('Book Not Avilable in database') 
 
+<<<<<<< HEAD
 #final datas at deployment
 # CSV_USERS_PATH='../data/Users.csv'
 # def upload_all_records_to_Customuser(request):
@@ -96,3 +97,6 @@ def book(request,pk):
 
 #             print("[!] Record successfully added!")
 #     return HttpResponse("[!] All records added!")
+=======
+
+>>>>>>> b98be4342eb5922801dbadf73506a24527e60860

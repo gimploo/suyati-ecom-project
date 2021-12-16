@@ -1,18 +1,12 @@
-import React, {useState, useEffect, useContext} from 'react'
-import AuthContext from '../context/AuthContext'
-
+import React from "react";
 
 const HomePage = () => {
-
-    let {user} = useContext(AuthContext);
-
-
-    return (
-        
-        <div class='font-semibold text-white p-10 text-center bg-gray-700' >
-            HOME PAGE 
-        </div>
-    )
-}
+  
+  return (
+    <div class="font-semibold text-white p-10 text-center bg-gray-700">
+      HOME PAGE
+    </div>
+  );
+};
 
 export default HomePage;
