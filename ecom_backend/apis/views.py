@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect,HttpResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 import csv
+import pandas as pd
 
 
 
@@ -25,6 +26,7 @@ def User_Rating(request,pk):
         if x.user_id==pk:
             serializer=RatingSerializer(x)
             data.append(serializer.data)
+
    
     for val in data:
         try:
@@ -32,58 +34,65 @@ def User_Rating(request,pk):
             books=Books.objects.get(ISBN=isbn)
             book_title=books.Book_title
             book_auth=books.Book_Author
+            isbn=books.ISBN
             res["book_title"]=book_title
             res["book_auth"]=book_auth
+            res["book_isbn"]=isbn
             res["rating"]=val["rating"]
+            res["User_id"]=val["user_id"]
             res_copy=res.copy()
             temp.append(res_copy)
         except:
             return Response('The User is not Rated')
+    frame=pd.DataFrame(data)
+    print(frame)
 
-    return Response(temp)
+    return Response(frame)
 
 @api_view(['GET'])
 def book(request,pk):
     try:
-        books=Books.objects.get(id=pk)
+        books=Books.objects.get(ISBN=pk)
         ser=BookSerializer(books)
         return Response(ser.data)
     except:
         return Response('Book Not Avilable in database') 
 
-
-# CSV_BOOKS_PATH='../data/Books.csv'
-# def upload_all_records_to_Book(request):
-#     with open(CSV_BOOKS_PATH) as f:
+#final datas at deployment
+# CSV_USERS_PATH='../data/Users.csv'
+# def upload_all_records_to_Customuser(request):
+#     with open(CSV_USERS_PATH) as f:
 #         reader = csv.reader(f)
 #         next(reader)
 
-#         print("[!] Deleting all records in Books")
-#         Books.objects.all().delete()
+#         print("[!] Deleting all records in Users")
+#         userdata.objects.all().delete()
 
-#         print("[*] Inserting new records into Books ....")
+#         print("[*] Inserting new records into Users ....")
 #         for row in reader:
 #             print("[!] New record:", row)
 
-#             isbn                = row[0]
-#             title               = row[1]
-#             author              = row[2]
-#             year_of_publication = row[3]
-#             publisher           = row[4]
-#             img_url_s           = row[5]
-#             img_url_m           = row[6]
-#             img_url_l           = row[7]
+#             user_id = int(row[0])
 
-#             Books(
-#                 ISBN = isbn, 
-#                 Book_title = title, 
-#                 Book_Author = author, 
-#                 Year_of_Publication = year_of_publication, 
-#                 Publisher = publisher, 
-#                 img_url_S = img_url_s, 
-#                 img_url_M = img_url_m, 
-#                 img_url_L = img_url_l
-#             ).save()
+#             if row[1] == '':
+#                 location = 'UNKNOWN'
+#             else:
+#                 location = row[1]
+
+#             if row[2] == '':
+#                 age = 0
+#             else:
+#                 age = float(row[2])
+
+#             try:
+#                 userdata(
+#                     user_id,
+#                     location,
+#                     age
+#                 ).save()
+#             except Exception as e:
+#                 print(e)
+#                 exit(1)
+
 #             print("[!] Record successfully added!")
-
 #     return HttpResponse("[!] All records added!")

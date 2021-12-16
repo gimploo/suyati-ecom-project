@@ -22,8 +22,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY=config('SECRET_KEY')
-# SECRET_KEY='7_cvzbkdjrtq6ak6qsw_jmeo2c3k9qnu(-a7(1tld-4v!tgh$e'
+# SECRET_KEY=config('SECRET_KEY')
+SECRET_KEY='7_cvzbkdjrtq6ak6qsw_jmeo2c3k9qnu(-a7(1tld-4v!tgh$e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -96,9 +96,16 @@ WSGI_APPLICATION = 'ecom_backend.wsgi.application'
 
 DATABASES = {
     'default': {
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME':'ecom_plugin_db_live',
+        # 'USER':'libinluvis',
+        # 'PASSWORD':'awsdb123#',
+        # 'HOST':'database-1.cowjcxof11l4.us-east-2.rds.amazonaws.com',
+        # 'PORT':'5432'
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        
+    } 
 }
 
 
