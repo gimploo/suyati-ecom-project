@@ -32,7 +32,7 @@ const DashboardPage = () => {
   return ( 
    <>
    {user ?
-    <div class="bg-yellow-500 p-20">
+    <div class="bg-yellow-100 p-20">
       <h1 class="text-left md:text-8xl text-2xl font-light text-gray-100">
         Welcome User {user.id}!
       </h1>
