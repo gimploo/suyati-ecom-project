@@ -31,9 +31,9 @@ const App = () => {
 					<Dropdown isOpen={isOpen} toggle={toggle}/>
 					<Route path='/' component={HomePage} exact />
 					<Route path='/login' component={LoginPage} />
-					<UserRoute path='/books' component={MyBooksPage} />
+					<UserRoute component={MyBooksPage} path='/books'/>
 					<Route path='/signup' component={SignupPage} />
-					<UserRoute path='/dashboard' component={DashboardPage} />
+					<UserRoute component={DashboardPage} path='/dashboard'/>
 				</UserProvider>
 				<Footer />
 			</BrowserRouter>

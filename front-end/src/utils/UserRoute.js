@@ -3,13 +3,15 @@ import { useContext } from 'react';
 import UserContext from '../context/UserContext';
 
 
-const UserRoute = ({children, ...rest}) => {
+const UserRoute = ({component, ...rest}) => {
 
     let { user } = useContext(UserContext);
 
-    return (
-        <Route {...rest}>{ !user ? <Redirect to='/login' /> : children } </Route>
-    );
+    if (!user ) {
+        return (<Route {...rest}>{<Redirect to='/login' />} </Route>)
+    } else  {
+        return (<Route {...rest} component={component} />)
+    }
 }
 
 export default UserRoute;
