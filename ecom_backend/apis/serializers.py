@@ -13,7 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
 class RatingSerializer(serializers.ModelSerializer):
     class Meta:
         model=Rating
-        fields=('isbn','rating')
+        fields='__all__'
 
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
