@@ -48,7 +48,7 @@ def User_Rating(request,pk):
             res_copy=res.copy()
             temp.append(res_copy)
         except:
-            return Response('The User is not Rated')
+            return Response('The User is not Rated!')
  
 
     return Response(temp)
