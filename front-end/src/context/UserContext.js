@@ -8,6 +8,7 @@ export default UserContext
 export const UserProvider = ({ children }) => {
 
   const [user, setUser] = useState(null)
+  const [rating, setRating ] = useState(null)
 
   const history = useHistory()
 
@@ -29,16 +30,29 @@ export const UserProvider = ({ children }) => {
           alert("login failed!");
         }
       })
+
+    await axios.get(`http://127.0.0.1:8000/api/user_rating/${userid}/`)
+
+      .then((res) => {
+        console.log(res.data);
+        if (res.status == 200) {
+          setRating(res.data);
+        } else {
+          alert("Unavailable to fetch ratings data");
+        }
+      })
   }
 
   const logoutUser = () => {
     setUser(null);
+    setRating(null)
     localStorage.removeItem('user_id')
     history.replace('/')
   }
 
   let contextData = {
     user: user,
+    rating:rating,
     loginUser: loginUser,
     logoutUser: logoutUser
   }
