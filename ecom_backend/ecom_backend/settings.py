@@ -52,9 +52,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'apis',
     'rest_framework',
- 
-    
-
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -149,3 +147,4 @@ MEDIA_URL = '/media/'
 
 
 STATIC_URL = '/static/'
+

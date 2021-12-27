@@ -3,6 +3,7 @@ from .serializers import *
 from django.http import HttpResponseRedirect,HttpResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from .filters import  BookFilter
 
 
 
@@ -62,4 +63,20 @@ def book(request,pk):
     except:
         return Response('Book Not Avilable in database') 
 
+
+
+@api_view(['GET'])
+def search(request):
+    try:
+        queryset = Books.objects.all()
+        filterset = BookFilter(request.GET, queryset=queryset)
+        if filterset.is_valid():
+            queryset = filterset.qs
+        serializer = BookSerializer(queryset, many=True)
+        return Response(serializer.data)
+    except:
+        return Response('Oops Something Went Wrong!')
+
+
+ 
 
