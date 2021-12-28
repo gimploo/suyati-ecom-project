@@ -6,10 +6,7 @@
 2. npm install 
 3. npm start 
 
-### Steps to the run the backend (gimploo)
-1. cd backend/
-2. python3 manage.py runserver
-3. python3 manage.py runscript upload_from_csv
+
 
 ### Steps to Start the backend
 1. cd ecom_backend/
