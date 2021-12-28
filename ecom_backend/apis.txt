@@ -1,6 +1,8 @@
 api/login/<int:pk>/    #api for the login at the place of <int:pk> we needed to pass the user id 
 api/user_rating/<int:pk>/  #api for the users rating at the place of <int:pk> pass user id 
 api/book/<int:pk>/  #to view a specfic book pass the book id at <int:pk>
+api/search/?temp=kitchen/ #the search api
 example : http://127.0.0.1:8000/api/book/11/
 example : http://127.0.0.1:8000/api/user_rating/2/
 example : http://127.0.0.1:8000/api/login/2/
+example : http://127.0.0.1:8000/api/search/?temp=kitchen/

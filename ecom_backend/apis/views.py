@@ -4,6 +4,11 @@ from django.http import HttpResponseRedirect,HttpResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .filters import  BookFilter
+import pandas as pd
+import csv
+from rest_framework.generics import ListAPIView
+from rest_framework.pagination import PageNumberPagination
+
 
 
 
@@ -57,7 +62,7 @@ def User_Rating(request,pk):
 @api_view(['GET'])
 def book(request,pk):
     try:
-        books=Books.objects.get(ISBN=pk)
+        books=Books.objects.get(id=pk)
         ser=BookSerializer(books)
         return Response(ser.data)
     except:
@@ -76,6 +81,19 @@ def search(request):
         return Response(serializer.data)
     except:
         return Response('Oops Something Went Wrong!')
+
+# @api_view(['GET'])
+# def trending_books(request):
+#     bookrating=pd.read_csv('data\Ratings.csv')
+#     rating_count=pd.DataFrame(bookrating.groupby('ISBN')['Book-Rating'].count())
+#     rating_count.sort_values('Book-Rating',ascending=False).head()
+
+#pagination for the whole books in our store 
+class ApiView(ListAPIView):
+    queryset=Books.objects.all()
+    serializer_class=BookSerializer
+    pagination_class=PageNumberPagination
+
 
 
  
