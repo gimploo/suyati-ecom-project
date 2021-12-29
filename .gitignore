@@ -1,6 +1,7 @@
 
 front-end/node_modules
 old-front-end/node_modules
+ecom_backend/ml_datas
 __pycache__
 *.pyc
 *.pyc
