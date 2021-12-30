@@ -10,18 +10,18 @@ const Dropdown = ({ isOpen, toggle }) => {
     <div
       class={
         isOpen
-          ? 'md:hidden flex flex-col text-center font-light text-xl justify-center items-center text-white bg-blue-500'
+          ? 'md:hidden flex flex-col text-center font-light text-xl justify-center items-center text-white bg-blue-500 '
           : 'hidden'
       }
       onClick={toggle}
     >
-      <Link to='/' class='p-4 hover:bg-blue-400 bg-blend-normal bg-blue-600 min-w-full '>
+      <Link to='/' class='p-4 hover:bg-blue-800 bg-blend-normal bg-black min-w-full '>
         Home
       </Link>
-      <Link to='/books' class='p-4 hover:bg-blue-400 bg-blue-700 min-w-full'>
+      <Link to='/books' class='p-4 hover:bg-blue-800 bg-black min-w-full'>
         Books
       </Link>
-        <Link to='/dashboard' class='p-4 hover:bg-blue-400 bg-blue-800 min-w-full'>
+        <Link to='/dashboard' class='p-4 hover:bg-blue-800 bg-black min-w-full'>
             Dashboard
         </Link>
       {!user ?

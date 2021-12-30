@@ -4,7 +4,7 @@ import UserContext from "../context/UserContext";
 const UserInfoDump = ({ value }) => {
 
   return (
-    <div class="rounded-lg md:w-2/3 w-full border-4">
+    <div class="rounded-lg md:w-1/2 w-full border-4">
       <h2 class="p-10 bg-yellow-300 font-semibold text-4xl md:text-6xl text-blue-800">
         About
       </h2>
@@ -31,7 +31,7 @@ const DashboardPage = () => {
 
   return ( 
    <>
-    <div class="bg-gray-700 p-20">
+    <div class="bg-blue-800 p-20">
       <UserInfoDump value={user} />
     </div>
    </>
