@@ -1,8 +1,24 @@
 import { React, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import SearchField from 'react-search-field';
 
 import COMPANYLOGO from '../assets/images/Suyati-logo-01.svg';
 import UserContext from '../context/UserContext';
+
+const SearchBar = () => {
+
+    const style = 'm-3 w-full md:w-1/4 bg-blue-800'
+
+    return (
+        <SearchField
+            classNames={style}
+            placeholder="Search books"
+            // onChange={}
+            searchText=""
+        />
+    );
+
+}
 
 const Navbar = ({toggle}) => {
 
@@ -36,9 +52,9 @@ const Navbar = ({toggle}) => {
 
             return (
 
-                <div class='md:flex hidden space-x-2 justify-evenly'>
+                <div class='md:flex hidden justify-evenly'>
                     <Link to=''>
-                        <button onClick={logoutUser} class='mt-1 mr-2 px-8 py-4 text-blue-100 hover:bg-blue-500 font-semibold bg-blue-700 rounded-3xl drop-shadow' > 
+                        <button onClick={logoutUser} class='mt-1 mr-2 px-8 py-4 text-gray-800 hover:bg-gray-400 font-semibold bg-gray-200 rounded-3xl drop-shadow' > 
                             Logout
                         </button>
                     </Link>
@@ -91,9 +107,10 @@ const Navbar = ({toggle}) => {
     }
 
     return (
-        <header class='bg-white border-b-2 drop-shadow-lg'>
-            <div class="w-full h-20 justify-between start-end p-2 max-w-full max-h-full flex space-x-2">
+        <header class='bg-white border-b-2 drop-shadow-lg '>
+            <div class="w-full h-30 justify-between mt-2 start-end p-2 max-w-full max-h-full flex space-x-10 md:w-auto md:justify-center mx-auto ">
                 <LeftNavbar />
+                <SearchBar />
                 <MiddleNavbar />
                 <RightNavbar /> 
             </div>

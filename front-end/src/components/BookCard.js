@@ -1,18 +1,24 @@
 import React from 'react'
 
 
-
 const BookCard = ({author, imgUrl, title, rating} ) => {
 
-    return (<>
-        <div class='bg-white md:w-1/3 m-4'>
-            <h1 class='font-bold bg-black text-white text-2xl p-4'>{title}</h1>
-            {/* <p class='px-4 text-right font-light'>By {author}</p> */}
-            <img class='rounded-sm p-2' width='600' height='400' alt='book image' src={imgUrl}/>
-            <h2 class='font-extralight '> Rating:<b>{rating}</b> </h2>
+    return (
+
+        <div className="bg-white box-border overflow-hidden md:flex flex-column justify-between cursor-pointer drop-shadow-lg">
+            <div className="m-0">
+                <h2 className="p-4 text-white font-bold bg-black">{title}</h2>
+                <p className="p-2 bg-blue-100">You rated {rating} / 10 !</p>
+                <img src={imgUrl} class='object-cover overflow-hidden w-full'/>
+                {/* <h3 className="p-4 text-white font-bold text-left bg-gray-800">By {author}</h3> */}
+            </div>
         </div>
-    </>)
+
+    )
+
 }
+
+
 
 
 export default BookCard

@@ -9,24 +9,28 @@ const MyBooksPage = () => {
 
     return (
     <div class='bg-yellow-200'>
-        <div class='md:w-3/4 m-auto'>
-            <div class='p-7 bg-yellow-300'>
-                <h1 class='text-yellow-200 md:text-center font-extralight text-6xl bg-yellow-700 p-6 rounded-lg'>My Books</h1>
 
-                <div class='md:flex'>
-                    { rating && 
-                        rating.map((element, index) => (
-                            <BookCard title={element.book_title}
-                                author={element.book_auth}
-                                rating={element.rating}
-                                imgUrl={element.img_Lar}
-                            />
-                        )) 
-                    }
-                </div>
-            </div>
+        <div class='text-yellow-200 text-left font-semibold text-6xl bg-yellow-600 flex justify-center'>
+        <h1 class='flex md:w-1/3 p-8 justify-center'>
+            My Books
+        </h1>
+
         </div>
-</div>
+
+        <div class='md:flex space-y-8 md:p-5 md:space-x-8 md:justify-center md:align-center w-auto'>
+            { rating && 
+                rating.map((element, index) => (
+                    <BookCard title={element.book_title}
+                        author={element.book_auth}
+                        rating={element.rating}
+                        imgUrl={element.img_Lar}
+                    />
+                )) 
+            }
+        </div>
+
+
+    </div>
     )
 }
 
