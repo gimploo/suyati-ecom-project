@@ -17,7 +17,7 @@ const MyBooksPage = () => {
 
         </div>
 
-        <div class='md:flex space-y-8 md:p-5 md:space-x-8 md:justify-center md:align-center w-auto'>
+        <div class='drop-shadow-sm md:flex md:p-5 md:h-1/8 md:space-x-8 md:justify-center md:align-center w-2/3'>
             { rating && 
                 rating.map((element, index) => (
                     <BookCard title={element.book_title}

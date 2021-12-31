@@ -41,7 +41,7 @@ const HomePage = () => {
       />
     </div>
 
-    <h1 class='p-8 text-4 text-center font-bold text-blue-800'> TODO </h1>
+    <h1 class='p-8 text-4 text-center font-bold text-blue-800'> Home page </h1>
 
     </div>
   );
