@@ -2,6 +2,7 @@
 front-end/node_modules
 old-front-end/node_modules
 ecom_backend/ml_datas
+apis/Ratings.csv
 __pycache__
 *.pyc
 *.pyc

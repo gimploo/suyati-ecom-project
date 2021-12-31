@@ -6,15 +6,15 @@ const HomePage = () => {
  const data = [
     {
       image: "https://manybooks.net/sites/default/files/2018-07/bookdisplaysmall.jpg",
-      caption: "Placeholder 01"
+      caption: "“A reader lives a thousand lives before he dies . . . The man who never reads lives only one.” - George R.R. Martin"
     },
     {
       image: "https://manybooks.net/sites/default/files/2018-07/bookcoverssmall2.jpg",
-      caption: "Placeholder 02"
+      caption: "“Until I feared I would lose it, I never loved to read. One does not love breathing.” - Harper Lee"
     },
     {
       image: "https://manybooks.net/sites/default/files/2018-07/bookstackssmall.jpg",
-      caption: "Placeholder 03"
+      caption: "“Never trust anyone who has not brought a book with them.” - Lemony Snicket"
     },
   ];
 
