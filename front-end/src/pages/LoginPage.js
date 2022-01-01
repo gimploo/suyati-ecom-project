@@ -1,11 +1,13 @@
-import { React, useContext } from "react";
-
+import { React, useContext, useState } from "react";
 import companyLogo from "../assets/images/Suyati-logo-01.svg";
 import bookShelf from "../assets/images/login-page-bookshelf.jpg";
 import UserContext from "../context/UserContext";
+import CircularProgress from '@mui/material/CircularProgress';
+import Alert from '@mui/material/Alert';
+import "../css/login.css";
 
 const LoginPage = () => {
-  let { loginUser } = useContext(UserContext);
+  let { loginUser,loading,useralert,networkalert} = useContext(UserContext);
 
   return (
     <>
@@ -27,7 +29,14 @@ const LoginPage = () => {
             </div>
 
             <hr class="border-t-2 border-yellow-300" />
-
+             <div className="alert">
+              {useralert?<>
+              <Alert severity="error">User id is incorrect — check it out!</Alert>
+              </>:null}
+              {networkalert?<>
+              <Alert severity="error">Network Error check connection — check it out!</Alert>
+              </>:null}
+             </div>
             {/* <!-- Form --> */}
             <div class="px-20">
               <form
@@ -40,13 +49,26 @@ const LoginPage = () => {
                   min="0"
                   name="userid"
                   placeholder="User ID"
+                  required
                 />
                 <br />
-                <input
-                  type="submit"
-                  class="p-6 w-full bg-yellow-400 rounded-lg font-semibold text-yellow-800 hover:bg-yellow-300"
-                  value="Login"
-                />
+                {!loading ? (
+                  <>
+            
+                   <div className="login_progressbar">
+                   <CircularProgress color="success" style={{padding: "10px"}}/>
+                   </div>
+                    
+                  </>
+                ) : (
+                  <input
+                    type="submit"
+                    class="p-6 w-full bg-yellow-400 rounded-lg font-semibold text-yellow-800 hover:bg-yellow-300"
+                    value="Login"
+                   
+                    
+                  />
+                )}
               </form>
             </div>
 

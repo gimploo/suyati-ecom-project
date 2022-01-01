@@ -1,7 +1,13 @@
-import React from "react";
+import React,{useContext,useEffect} from "react";
 import { Carousel } from 'react-carousel-minimal';
+import UserContext from "../context/UserContext";
 
 const HomePage = () => {
+  let { userstate } = useContext(UserContext);
+
+  useEffect(()=>{
+      userstate()
+  },[])
 
  const data = [
     {

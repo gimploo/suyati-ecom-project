@@ -1,25 +1,46 @@
-import React from 'react'
+import React from "react";
+import Box from '@mui/material/Box';
+import Rating from '@mui/material/Rating';
 
-
-const BookCard = ({author, imgUrl, title, rating} ) => {
-
-    return (
-
-        <div className="bg-white box-border m-4 overflow-hidden md:flex flex-column justify-between cursor-pointer drop-shadow-lg">
-            <div className="m-0">
-                <h2 className="p-4 text-white font-bold bg-black">{title}</h2>
-                <p className="p-2 bg-blue-100">You rated {rating} / 10 !</p>
-                <img src={imgUrl} class='object-cover overflow-hidden w-full'/>
-                {/* <h3 className="p-4 text-white font-bold text-left bg-gray-800">By {author}</h3> */}
+const BookCard = ({ author, imgUrl, title, rating }) => {
+    
+  return (
+     
+    <>
+        <Box
+      sx={{
+        '& > legend': { mt: 2 },
+      }}
+    ></Box>
+    
+        <div className="container">
+        <div className="book_img">
+          <img src={imgUrl} style={{ height: "150px", width: "150px" }}></img>
+          <div className="book_details">
+            <div className="book_horiz">
+              <h2 className="book_tit">Book title - </h2>
+              <p style={{ marginTop: "5px", marginLeft: "10px" }}>{title}</p>
             </div>
+            <div className="book_horiz">
+              <h2 className="book_tit">Book author - </h2>
+              <p style={{ marginTop: "5px", marginLeft: "10px" }}>{author}</p>
+            </div>
+            <div className="book_horiz">
+              <h2 className="book_tit">Ratings - </h2>
+              <p style={{ marginTop: "5px", marginLeft: "10px" }}>
+              <Rating
+        name="read-only"
+        value={rating/2} readOnly
+      />
+     </p>
+            </div>
+          </div>
         </div>
+      </div>
+    
 
-    )
+    </>
+  );
+};
 
-}
-
-
-
-
-export default BookCard
-
+export default BookCard;

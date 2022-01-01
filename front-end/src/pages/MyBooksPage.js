@@ -1,38 +1,42 @@
-import React, { useContext } from 'react'
-import BookCard from '../components/BookCard'
-import UserContext from '../context/UserContext'
-
+import React, { useContext } from "react";
+import BookCard from "../components/BookCard";
+import UserContext from "../context/UserContext";
+import "../css/bookcard.css";
+import Rating from "@mui/material/Rating";
 
 const MyBooksPage = () => {
+  const { rating } = useContext(UserContext);
 
-    const { rating } = useContext(UserContext)
-
-    return (
-    <div class='bg-yellow-200'>
-
-        <div class='text-yellow-200 text-left font-semibold text-6xl bg-yellow-600 flex justify-center'>
-        <h1 class='flex md:w-1/3 p-8 justify-center'>
-            My Books
-        </h1>
-
+  return (
+    <>
+ 
+      <div className="container" style={{minHeight:"100vh"}}>
+          <div className="head_tit">
+          <h1 style={{color:"white",fontSize:"30px",fontFamily:"sans-serif",fontWeight:"bold"}}>Rated Books</h1>
+          </div>
+        <div className="rated_outerbox">
+          {rating[0] ? (
+            <>
+              {rating.map((element, index) => (
+                <BookCard
+                  title={element.book_title}
+                  author={element.book_auth}
+                  rating={element.rating}
+                  imgUrl={element.img_Lar}
+                />
+              ))}
+            </>
+          ) : (
+            <div className="not_rated">
+              <h1 style={{fontSize:"30px",marginBottom:"20px"}}>User Not Rated Yet</h1>
+              <Rating name="size-large" defaultValue={null} size="large" style={{marginLeft:"40px"}} readOnly/>
+            </div>
+          )}
         </div>
+      </div>
+    </>
 
-        <div class='drop-shadow-sm md:flex md:p-5 md:h-1/8 md:space-x-8 md:justify-center md:align-center w-2/3'>
-            { rating && 
-                rating.map((element, index) => (
-                    <BookCard title={element.book_title}
-                        author={element.book_auth}
-                        rating={element.rating}
-                        imgUrl={element.img_Lar}
-                    />
-                )) 
-            }
-        </div>
+  );
+};
 
-
-    </div>
-    )
-}
-
-
-export default MyBooksPage
+export default MyBooksPage;
