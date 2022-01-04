@@ -56,3 +56,16 @@
     justify-content: center;
     margin: 20px;
 }
+.rated_outerbox1{
+    width: 800px;
+    height: 500px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    border-radius: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

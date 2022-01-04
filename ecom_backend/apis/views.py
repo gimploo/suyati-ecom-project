@@ -63,14 +63,19 @@ def User_Rating(request,pk):
 
 @api_view(['GET'])
 def book(request,pk):
+
+    res={}
     try:
-        books=Books.objects.get(id=pk)
-        ser=BookSerializer(books)
-        return Response(ser.data)
+        books=Books.objects.get(ISBN=pk)
+        res["title"]=books.Book_title
+        res["author"]=books.Book_Author
+        res["publisher"]=books.Publisher
+        res["year_publisher"]=books.Year_of_Publication
+        res["img"]=str(books.img_url_L)
     except:
-        return Response('Book Not Avilable in database') 
-
-
+        return Response('book not founded')
+    return Response(res)
+   
 
 @api_view(['GET'])
 def search(request):
@@ -109,11 +114,13 @@ def trending_books(request):
             books=Books.objects.get(ISBN=isbn)
             book_title=books.Book_title
             book_auth=books.Book_Author
+            ISBN=books.ISBN
             img_S=books.img_url_S
             img_M=books.img_url_M
             img_L=books.img_url_L
             res["book_title"]=book_title
             res["book_auth"]=book_auth
+            res["isbn"]=ISBN
             res["img_small"]=str(img_S)
             res["img_med"]=str(img_M)
             res["img_Lar"]=str(img_L)
@@ -267,6 +274,17 @@ def book_recom(request):
         return Response('ISBN not found in books data')
 
     return Response(final_book_obj) 
+
+@api_view(['POST'])
+def submitrating(request):
+    data=request.data
+    print(data)
+    datas=Rating.objects.create(
+        user_id=data['userid'],
+        isbn=data['isbn'],
+        rating=data['rating'] 
+    )
+    return Response('Rating added sucessfully')
 
 
      

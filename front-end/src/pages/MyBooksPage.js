@@ -1,11 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext,useEffect } from "react";
 import BookCard from "../components/BookCard";
 import UserContext from "../context/UserContext";
 import "../css/bookcard.css";
 import Rating from "@mui/material/Rating";
 
 const MyBooksPage = () => {
-  const { rating } = useContext(UserContext);
+  const { rating,user_rating } = useContext(UserContext);
+  useEffect(()=>{
+    user_rating();
+  },[])
 
   return (
     <>
@@ -15,7 +18,7 @@ const MyBooksPage = () => {
           <h1 style={{color:"white",fontSize:"30px",fontFamily:"sans-serif",fontWeight:"bold"}}>Rated Books</h1>
           </div>
         <div className="rated_outerbox">
-          {rating[0] ? (
+          {rating && rating[0] ? (
             <>
               {rating.map((element, index) => (
                 <BookCard

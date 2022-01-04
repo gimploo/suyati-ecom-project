@@ -1,6 +1,8 @@
 import React,{useContext,useEffect} from "react";
 import { Carousel } from 'react-carousel-minimal';
 import UserContext from "../context/UserContext";
+import Rowbooks from "../components/Rowbooks"
+import "../css/Rowbooks.css";
 
 const HomePage = () => {
   let { userstate } = useContext(UserContext);
@@ -29,7 +31,7 @@ const HomePage = () => {
     fontWeight: 'bold',
   }
   return (
-    <div class='bg-blue-200'>
+    <div style={{backgroundColor:'white'}}>
     <div class='bg-black border-2 h-auto text-center w-full'>
       <Carousel
         data={data}
@@ -47,9 +49,16 @@ const HomePage = () => {
       />
     </div>
 
-    <h1 class='p-8 text-4 text-center font-bold text-blue-800'> Home page </h1>
-
+    {/* <h1 class='p-8 text-4 text-center font-bold text-blue-800'> Home page </h1> */}
+    <div className="rowbooks">
+      <div className='trending_box'>
+      <h2 className='trending_tit'>TRENDING BOOKS</h2>
+      <Rowbooks/>
+      </div>
+   
     </div>
+</div>
+   
   );
 }
 

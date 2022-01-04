@@ -4,6 +4,7 @@ import bookShelf from "../assets/images/login-page-bookshelf.jpg";
 import UserContext from "../context/UserContext";
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
+import { Link } from "react-router-dom";
 import "../css/login.css";
 
 const LoginPage = () => {
@@ -82,9 +83,11 @@ const LoginPage = () => {
             <div class="mb-8">
               <p class="text-center font-semibold text-gray-800">
                 Don't have an account?
+                <Link to='/signup'>
                 <button class="p-1 mb-4 font-bold text-indigo-500 hover:text-indigo-400">
-                  contact admin
+                  Signup
                 </button>
+                </Link>
               </p>
             </div>
           </div>

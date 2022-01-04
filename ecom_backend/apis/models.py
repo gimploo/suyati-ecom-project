@@ -25,10 +25,14 @@ class Books(models.Model):
         return self.Book_title 
 
 class Rating(models.Model):
-    id=models.PositiveIntegerField(primary_key=True)
     user_id=models.IntegerField()
     isbn=models.CharField(max_length=200)
-    rating=models.IntegerField()
+    rating=models.IntegerField(null=True,blank=True) 
 
     def __int__(self):
         return self.user_id
+
+class test(models.Model):
+    user_id=models.IntegerField()
+    isbn=models.CharField(max_length=200)
+    rating=models.IntegerField()

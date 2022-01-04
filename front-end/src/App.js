@@ -1,11 +1,8 @@
 import { BrowserRouter,  Route } from 'react-router-dom';
-
 import { UserProvider } from './context/UserContext.js';
-
 import React, { useState } from 'react'
-
 import UserRoute from './utils/UserRoute'
-
+import Ratings from './pages/Ratings'
 
 import Navbar from './components/Navbar';
 import LoginPage from './pages/LoginPage';
@@ -29,6 +26,7 @@ const App = () => {
 				<UserProvider>
 					<Navbar toggle={toggle}/>
 					<Dropdown isOpen={isOpen} toggle={toggle}/>
+					<Route exact path='/ratings/:id' component={Ratings} />
 					<Route path='/' component={HomePage} exact />
 					<Route path='/login' component={LoginPage} />
 					<UserRoute component={MyBooksPage} path='/books'/>
