@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useContext } from "react";
 import Button from "@mui/material/Button";
+import Skeleton from '@mui/material/Skeleton';
+import "../css/Rowbooks.css";
 import Rating from "@mui/material/Rating";
 import UserContext from "../context/UserContext";
 import Alert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
-import axios from "axios";
+import axios from "../Axios";
 function Ratings(props) {
   const { rating } = useContext(UserContext);
   const [open, setOpen] = React.useState(false);
+  const [loading,setLoading]=useState(false)
   var isbns = [];
-  const ratingapi = "http://127.0.0.1:8000/api/submitrating/";
+  const ratingapi = "api/submitrating/";
   const isbn = `${props.match.params.id}`;
   const [value, setValue] = useState(0);
   if (rating && rating[0]) {
@@ -31,9 +34,11 @@ function Ratings(props) {
 
   const [book, setBook] = useState([]);
   useEffect(() => {
+    setLoading(true)
     axios
-      .get(`http://127.0.0.1:8000/api/book/${isbn}/`)
+      .get(`api/book/${isbn}/`)
       .then((res) => {
+        setLoading(false)
         if (res.data && res) {
           setBook(res.data);
         }
@@ -65,7 +70,8 @@ function Ratings(props) {
   return (
     <div className="root" style={{ minHeight: "100vh" }}>
       <div className="rated_outerbox1">
-        <div className="container">
+        {!loading?<>
+          <div className="container">
           <div className="book_img">
             <img
               src={book.img}
@@ -84,6 +90,19 @@ function Ratings(props) {
                   {book.author}
                 </p>
               </div>
+              <div className="book_horiz">
+                <h2 className="book_tit">Book Publisher - </h2>
+                <p style={{ marginTop: "5px", marginLeft: "10px" }}>
+                  {book.publisher}
+                </p>
+              </div>
+              <div className="book_horiz">
+                <h2 className="book_tit">Year of publishing - </h2>
+                <p style={{ marginTop: "5px", marginLeft: "10px" }}>
+                  {book.year_publisher}
+                </p>
+              </div>
+              
               <div className="book_horiz">
                 <h2 className="book_tit">Ratings - </h2>
                 {isbns.includes(isbn) ? (
@@ -162,7 +181,13 @@ function Ratings(props) {
             </div>
           </div>
         </div>
+        
+        </>:<div className="skelton-box">
 
+        <Skeleton variant="rectangular" width={310} height={200} />
+        <Skeleton variant="text"  />
+        <Skeleton variant="text"  /> 
+        </div>}
       </div>
     </div>
   );

@@ -7,14 +7,17 @@ import UserContext from '../context/UserContext';
 
 const SearchBar = () => {
 
+    let {searchvalue,booksearch} = useContext(UserContext);
+
     const style = 'm-3 w-full md:w-1/4 bg-blue-800'
 
     return (
         <SearchField
             classNames={style}
             placeholder="Search books"
-            // onChange={}
+            onChange={searchvalue}
             searchText=""
+            onSearchClick={booksearch}
         />
     );
 

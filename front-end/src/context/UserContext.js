@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
+import axios from "../Axios";
 
 const UserContext = createContext();
 export default UserContext;
@@ -8,20 +8,25 @@ export default UserContext;
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [rating, setRating] = useState(null);
+  const [search,setSearch]=useState(null);
   const [loading, setLoading] = useState(true);
+  const [sres,setSres] = useState([]);
   const [useralert, setUseralert] = useState(false);
   const [networkalert, setNetworkalert] = useState(false);
+  const [initial,setInitial]=useState(false);
   const userid=localStorage.getItem('user_id')
   const history = useHistory();
 
-  let loginUser = async (e) => {
+ 
+  const search_api=`api/search/?temp=${search}`
+  let loginUser = async (e) => { 
     setLoading(false);
     e.preventDefault();
 
     let userid = e.target.userid.value;
 
     await axios
-      .get(`http://127.0.0.1:8000/api/login/${userid}/`)
+      .get(`api/login/${userid}/`)
 
       .then((res) => {
         console.log(res.data);
@@ -49,10 +54,12 @@ export const UserProvider = ({ children }) => {
         }
       });
   };
+  
   const user_rating = () => {
-    axios.get(`http://127.0.0.1:8000/api/user_rating/${userid}/`)
+    axios.get(`api/user_rating/${userid}/`)
 
       .then((res) => {
+        setLoading(false)
         if (res.status == 200) {
           setRating(res.data);
         } else {
@@ -72,7 +79,7 @@ export const UserProvider = ({ children }) => {
   const userstate = () => {
     const userid = localStorage.getItem("user_id");
     axios
-      .get(`http://127.0.0.1:8000/api/login/${userid}/`)
+      .get(`api/login/${userid}/`)
 
       .then((res) => {
         if (res.status == 200) {
@@ -82,7 +89,21 @@ export const UserProvider = ({ children }) => {
         }
       });
   };
-
+  const  searchvalue=(value,event)=>{
+    event.preventDefault()
+    setSearch(value)
+  };
+  const booksearch=()=>{
+     axios.get(search_api).then((res)=>{
+       if(res && res.status==200){
+         localStorage.setItem('search_value',search) 
+        setSres(res.data)
+        setInitial(true)
+       }
+     }).catch((err)=>{
+       alert(err)
+     })
+  }
   let contextData = {
     user: user,
     rating: rating,
@@ -92,7 +113,12 @@ export const UserProvider = ({ children }) => {
     loginUser: loginUser,
     logoutUser: logoutUser,
     userstate: userstate,
-    user_rating:user_rating 
+    user_rating:user_rating,
+    searchvalue:searchvalue,
+    booksearch:booksearch,
+    sres:sres,
+    initial:initial ,
+    search:search
   };
 
   return (

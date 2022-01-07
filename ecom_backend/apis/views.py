@@ -72,6 +72,7 @@ def book(request,pk):
         res["publisher"]=books.Publisher
         res["year_publisher"]=books.Year_of_Publication
         res["img"]=str(books.img_url_L)
+        
     except:
         return Response('book not founded')
     return Response(res)
@@ -79,15 +80,21 @@ def book(request,pk):
 
 @api_view(['GET'])
 def search(request):
-    try:
-        queryset = Books.objects.all()
-        filterset = BookFilter(request.GET, queryset=queryset)
-        if filterset.is_valid():
-            queryset = filterset.qs
-        serializer = BookSerializer(queryset, many=True)
-        return Response(serializer.data)
-    except:
-        return Response('Oops Something Went Wrong!')
+    res={}
+    temp=[]
+    queryset = Books.objects.all()
+    filterset = BookFilter(request.GET, queryset=queryset)
+    if filterset.is_valid():
+        queryset = filterset.qs 
+    for x in queryset:    
+        res["Book_title"]=x.Book_title
+        res["Book_Author"]=x.Book_Author
+        res["ISBN"]=x.ISBN
+        res["img"]=str(x.img_url_L)
+        res_copy=res.copy()
+        temp.append(res_copy)
+    return Response(temp)
+
 
 @api_view(['GET'])
 def trending_books(request):

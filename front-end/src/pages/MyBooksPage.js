@@ -1,12 +1,13 @@
 import React, { useContext,useEffect } from "react";
 import BookCard from "../components/BookCard";
+import CircularProgress from '@mui/material/CircularProgress';
 import UserContext from "../context/UserContext";
 import "../css/bookcard.css";
 import Rating from "@mui/material/Rating";
 
 const MyBooksPage = () => {
-  const { rating,user_rating } = useContext(UserContext);
-  useEffect(()=>{
+  const { rating,user_rating,loading } = useContext(UserContext);
+  useEffect(()=>{ 
     user_rating();
   },[])
 
@@ -18,6 +19,11 @@ const MyBooksPage = () => {
           <h1 style={{color:"white",fontSize:"30px",fontFamily:"sans-serif",fontWeight:"bold"}}>Rated Books</h1>
           </div>
         <div className="rated_outerbox">
+          {loading?
+          <div className="skelton-box">
+          <CircularProgress color="success" />
+          </div>:
+          <>
           {rating && rating[0] ? (
             <>
               {rating.map((element, index) => (
@@ -35,11 +41,13 @@ const MyBooksPage = () => {
               <Rating name="size-large" defaultValue={null} size="large" style={{marginLeft:"40px"}} readOnly/>
             </div>
           )}
+          </>
+         }
         </div>
-      </div>
+      </div> 
     </>
 
-  );
+  ); 
 };
 
 export default MyBooksPage;
