@@ -10,8 +10,10 @@ urlpatterns = [
     path('api/book/<str:pk>/',views.book,name='books'),
     path('api/search/',views.search,name='search'),
     path('list',ApiView.as_view(),name='list'),
-    path('api/search_recom/',views.user_search_recom,name='recom'), 
+    path('api/search_recom/<int:pk>/',views.user_search_recom,name='recom'), 
     path('api/trending/',views.trending_books,name='trending'),
-    path('api/user_based_recom/',views.book_recom,name='books_recom'),
+    path('api/user_based_recom/<int:pk>/',views.book_recom,name='books_recom'),
     path('api/submitrating/',views.submitrating,name='submitrating'),
-]  
+    path('api/savesearch/',views.savedata,name='savesearch'),
+
+]   

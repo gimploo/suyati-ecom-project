@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState,useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "../Axios";
 
@@ -11,13 +11,18 @@ export const UserProvider = ({ children }) => {
   const [search,setSearch]=useState(null);
   const [loading, setLoading] = useState(true);
   const [sres,setSres] = useState([]);
+  const [nullrecom,setNullRecom] = useState(false)
   const [useralert, setUseralert] = useState(false);
   const [networkalert, setNetworkalert] = useState(false);
   const [initial,setInitial]=useState(false);
+  const [recombook, setRecomBook] = useState([]);
+  
   const userid=localStorage.getItem('user_id')
   const history = useHistory();
 
- 
+  useEffect(()=>{
+    savesearch();
+  },[sres])
   const search_api=`api/search/?temp=${search}`
   let loginUser = async (e) => { 
     setLoading(false);
@@ -29,13 +34,14 @@ export const UserProvider = ({ children }) => {
       .get(`api/login/${userid}/`)
 
       .then((res) => {
-        console.log(res.data);
+        
         if (res.status == 200) {
           localStorage.setItem("user_id", res.data.id);
           setUser(res.data);
           history.push("/");
           setLoading(true);
         } else {
+          alert('Something went wrong')
           setLoading(true);
         }
       })
@@ -99,11 +105,54 @@ export const UserProvider = ({ children }) => {
          localStorage.setItem('search_value',search) 
         setSres(res.data)
         setInitial(true)
+        
        }
      }).catch((err)=>{
        alert(err)
      })
   }
+  const savesearch=()=>{
+    const saveapi="api/savesearch/"
+    const userlogin=localStorage.getItem("user_id")
+      if(userlogin && sres.length==1){
+      var title=(sres[0].Book_title)
+      var user=localStorage.getItem("user_id")
+      const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const body = JSON.stringify({ userid:user,Book_title:title });
+      axios.post(saveapi,body,config).then((res)=>{
+         
+      })
+      
+    }
+  }
+  
+  const recom_book=()=>{
+    axios
+    .get(`api/user_based_recom/${userid}/`)
+    .then((res) => {
+      if (res && res.status == 200) {
+        if(res.data==0){
+          console.log("null")
+          setNullRecom(true)
+          setRecomBook([{"value":"null"}])
+        }
+        if(res.data!=0){
+          console.log("not null")
+          setNullRecom(false)
+          setRecomBook(res.data)
+        }
+          
+
+      }
+    })
+    .catch((err) => {});
+  }
+
   let contextData = {
     user: user,
     rating: rating,
@@ -118,7 +167,10 @@ export const UserProvider = ({ children }) => {
     booksearch:booksearch,
     sres:sres,
     initial:initial ,
-    search:search
+    search:search,
+    recom_book: recom_book,
+    nullrecom:nullrecom,
+    recombook:recombook
   };
 
   return (

@@ -32,7 +32,8 @@ class Rating(models.Model):
     def __int__(self):
         return self.user_id
 
-class test(models.Model):
-    user_id=models.IntegerField()
-    isbn=models.CharField(max_length=200)
-    rating=models.IntegerField()
+class savesearch(models.Model):
+    userid=models.IntegerField()
+    booktitle=models.CharField(max_length=200)
+    def __str__(self):
+        return self.booktitle

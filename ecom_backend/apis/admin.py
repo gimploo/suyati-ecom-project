@@ -5,3 +5,4 @@ from .models import *
 admin.site.register(userdata)
 admin.site.register(Books)
 admin.site.register(Rating)
+admin.site.register(savesearch)

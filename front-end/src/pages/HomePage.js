@@ -3,23 +3,25 @@ import { Carousel } from "react-carousel-minimal";
 import UserContext from "../context/UserContext";
 import CardContent from "@mui/material/CardContent";
 import { Link } from "react-router-dom";
-import searchicon from "../assets/images/searchicon.jpg"; 
+import searchicon from "../assets/images/searchicon.jpg";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import Rowbooks from "../components/Rowbooks";
-import Button from '@mui/material/Button';
-import CardActions from '@mui/material/CardActions';
+import Recombooks from "../components/RecomBook";
+import Button from "@mui/material/Button";
+import CardActions from "@mui/material/CardActions";
 import "../css/Rowbooks.css";
 import "../css/home.css";
 
 const HomePage = () => {
-  let { userstate, sres, initial,user,search } = useContext(UserContext);
+  let { userstate, sres, initial, user,recom_book } = useContext(UserContext);
 
   useEffect(() => {
     userstate();
+    recom_book();
   }, []);
 
-  var search_value=localStorage.getItem("search_value")
+  var search_value = localStorage.getItem("search_value");
 
   const data = [
     {
@@ -76,70 +78,132 @@ const HomePage = () => {
                   <>
                     {sres.length <= 3 ? (
                       <>
-                      <h2 className="trending_tit">Showing results For {search_value}</h2>
-                      <div className="searchresults" style={{backgroundColor:"#e6f2ff"}}>
-                        {sres.map((item, key) => (
-                          <div style={{backgroundColor:"#e6f2ff",padding:"20px"}} >
-                          <Card sx={{ maxWidth: 330 }}>
-                            <img src={item.img} style={{ height: "260px", width: "330px"}}></img>
-                            <CardContent>
-                              <Typography
-                                gutterBottom
-                                variant="h5"
-                                component="div"
-                              >
-                                {item.Book_title}
-                              </Typography>
-                              <Typography
-                                variant="body2"
-                                color="text.secondary"
-                              >
-                                {item.Book_Author}
-                              </Typography>
-                            </CardContent>
-                            <CardActions>
-                              {user && user.id?<>
-                                <Link to={`/ratings/${item.ISBN}`}>
-                                <Button variant="contained" color="success">
-                                  Rate
-                                </Button>
-                              </Link>
-                              </>:<>
-                              <Link to='/login'>
-                                <Button variant="contained" color="success">
-                                  Rate
-                                </Button>
-                              </Link>
-                              </>}
-                            </CardActions>
-                          </Card>
-                          </div>
-                        ))}
+                        <h2 className="trending_tit">
+                          Showing results For {search_value}
+                        </h2>
+                        <div
+                          className="searchresults"
+                          style={{ backgroundColor: "#e6f2ff" }}
+                        >
+                          {sres.map((item, key) => (
+                            <div
+                              style={{
+                                backgroundColor: "#e6f2ff",
+                                padding: "20px",
+                              }}
+                            >
+                              <Card sx={{ maxWidth: 330 }}>
+                                <img
+                                  src={item.img}
+                                  style={{ height: "260px", width: "330px" }}
+                                ></img>
+                                <CardContent>
+                                  <Typography
+                                    gutterBottom
+                                    variant="h5"
+                                    component="div"
+                                  >
+                                    {item.Book_title}
+                                  </Typography>
+                                  <Typography
+                                    variant="body2"
+                                    color="text.secondary"
+                                  >
+                                    {item.Book_Author}
+                                  </Typography>
+                                </CardContent>
+                                <CardActions>
+                                  {user && user.id ? (
+                                    <>
+                                      <Link to={`/ratings/${item.ISBN}`}>
+                                        <Button
+                                          variant="contained"
+                                          color="success"
+                                        >
+                                          Rate
+                                        </Button>
+                                      </Link>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <Link to="/login">
+                                        <Button
+                                          variant="contained"
+                                          color="success"
+                                        >
+                                          Rate
+                                        </Button>
+                                      </Link>
+                                    </>
+                                  )}
+                                </CardActions>
+                              </Card>
+                            </div>
+                          ))}
                         </div>
                       </>
                     ) : (
-                      <div className="trending_box">
-                        <h2 className="trending_tit">TRENDING BOOKS</h2>
-                        <Rowbooks />
-                      </div>
+                      <>
+                        <div className="trending_box">
+                          <h2 className="trending_tit">TRENDING BOOKS</h2>
+                          <Rowbooks />
+                        </div>
+                        <div className="trending_box">
+                          <h2 className="trending_tit">Recommendation</h2>
+                          {user && user.id ? (
+                            <>
+                              <Recombooks />
+                            </>
+                          ) : (
+                            <>
+                              <Link to="/login">
+                                <Button variant="contained" color="success">
+                                  Rate
+                                </Button>
+                              </Link>
+                            </>
+                          )}
+                        </div>
+                      </>
                     )}
                   </>
                 ) : null}
               </>
             ) : (
               <>
-              <h2 className="trending_tit">No Results Found</h2>
-              <div className="notfound">
-               <img src={searchicon } style={{ height: "260px", width: "330px"}}></img>
-              </div>
+                <h2 className="trending_tit">No Results Found</h2>
+                <div className="notfound">
+                  <img
+                    src={searchicon}
+                    style={{ height: "260px", width: "330px" }}
+                  ></img>
+                </div>
               </>
             )}
           </>
         ) : (
-          <div className="trending_box">
-            <h2 className="trending_tit">TRENDING BOOKS</h2>
-            <Rowbooks />
-          </div>
+          <>
+            <div className="trending_box">
+              <h2 className="trending_tit">TRENDING BOOKS</h2>
+              <Rowbooks />
+            </div>
+            <div className="trending_box">
+              <h2 className="trending_tit">Recommendation</h2>
+              {user && user.id ? (
+                <>
+                  <Recombooks />
+                </>
+              ) : (
+                <div className="login-recom">
+                  <Link to="/login">
+                    <Button variant="contained" color="success">
+                     Login for Recommendation
+                    </Button>
+                  </Link>
+                </div>
+              )}
+            </div>
+          </>
         )}
       </div>
     </div>

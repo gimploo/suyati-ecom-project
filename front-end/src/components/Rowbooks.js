@@ -1,7 +1,7 @@
 import React, { useEffect, useState,useContext } from "react";
 import "../css/Rowbooks.css";
 import { Link, Redirect } from "react-router-dom";
-import axios from "axios";
+import axios from "../Axios";
 import UserContext from "../context/UserContext";
 import Button from '@mui/material/Button';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
@@ -13,7 +13,7 @@ function Rowbooks() {
   const [trending, setTrending] = useState([]); 
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/api/trending/").then((res) => {
+    axios.get("api/trending/").then((res) => {
       if (res.status == 200 && res.data) {
         setTrending(res.data);
       }
@@ -39,7 +39,7 @@ function Rowbooks() {
                     Rate
                   </Button>
                 </Link>
-                <AddShoppingCartIcon/>
+                <AddShoppingCartIcon className="carticon"/>
                 </>:<>
                 <Link   to='/login' >
                 <Button variant="contained" color="success">

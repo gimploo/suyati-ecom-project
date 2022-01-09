@@ -39,9 +39,13 @@
 .trending_icons{
     display: flex;
     margin-top: 10px;
-    justify-content: space-between;
+    /* justify-content: space-around; */
+    
     align-items: center;
    
+}
+.carticon{
+    margin-left: 110px;
 }
 .trending_skeleton{
     display: flex;
