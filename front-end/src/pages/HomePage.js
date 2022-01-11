@@ -15,7 +15,7 @@ import "../css/Rowbooks.css";
 import "../css/home.css";
 
 const HomePage = () => {
-  let { userstate, sres, initial, user,recom_book } = useContext(UserContext);
+  let { userstate, sres, initial, user, recom_book } = useContext(UserContext);
 
   useEffect(() => {
     userstate();
@@ -159,11 +159,15 @@ const HomePage = () => {
                             <div className="login-recom">
                               <Link to="/login">
                                 <Button variant="contained" color="success">
-                                   Login for Recommendation
+                                  Login for Recommendation
                                 </Button>
                               </Link>
                             </div>
                           )}
+                          <div className="trending_box">
+                            <h2 className="trending_tit">Store Books</h2>
+                            <Storebooks />
+                          </div>
                         </div>
                       </>
                     )}
@@ -198,14 +202,14 @@ const HomePage = () => {
                 <div className="login-recom">
                   <Link to="/login">
                     <Button variant="contained" color="success">
-                     Login for Recommendation
+                      Login for Recommendation
                     </Button>
                   </Link>
                 </div>
               )}
               <div className="trending_box">
-              <h2 className="trending_tit">Store Books</h2>
-              <Storebooks/>
+                <h2 className="trending_tit">Store Books</h2>
+                <Storebooks />
               </div>
             </div>
           </>

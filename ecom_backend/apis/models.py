@@ -6,7 +6,7 @@ from django.db import models
 class userdata(models.Model):
     id = models.PositiveIntegerField(primary_key=True)
     Location=models.CharField(max_length=200)
-    Age=models.IntegerField(null=True)
+    Age=models.IntegerField(null=True,blank=True)
 
 def upload_path(instance,filename):
     return ''

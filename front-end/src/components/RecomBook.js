@@ -18,7 +18,7 @@ function RecomBook() {
            
           <>
            {nullrecom?<>
-           <h1>No Recommentations found</h1>
+           <h1 style={{margin:"auto"}}>No Recommentations found</h1>
            </>:<>
             {recombook.map((obj) => (
               <>

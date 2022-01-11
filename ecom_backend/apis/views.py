@@ -17,9 +17,16 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 @api_view(['GET'])
 def login(request,pk):
+    res={}
     user_data=userdata.objects.get(id=pk)
-    serializer=UserSerializer(user_data)
-    return Response(serializer.data)
+    userid=user_data.id
+    location=user_data.Location
+    age=user_data.Age
+    res["id"]=userid
+    res["Location"]=location
+    res["Age"]=age
+    # serializer=UserSerializer(user_data)
+    return Response(res)
 
 
 
@@ -400,8 +407,16 @@ def savedata(request):
 #             print("[!] Record successfully added!")
 
 #     return Response("[!] All records added!")
-     
-  
+@api_view(['POST'])
+def signup(request):
+    data=request.data
+    datas=userdata.objects.create(
+        id=data['userid'],
+        Location=data['location'],
+        Age=data['age']
+    )
+
+    return Response('user created')
 
 
 

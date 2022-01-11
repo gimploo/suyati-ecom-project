@@ -15,6 +15,7 @@ urlpatterns = [
     path('api/user_based_recom/<int:pk>/',views.book_recom,name='books_recom'),
     path('api/submitrating/',views.submitrating,name='submitrating'),
     path('api/savesearch/',views.savedata,name='savesearch'),
+    path('api/signup/',views.signup,name="signup")
     # path('api/test/',views.upload_all_records_to_Book,name='upload')
 
 ]   

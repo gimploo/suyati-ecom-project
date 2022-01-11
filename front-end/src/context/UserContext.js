@@ -38,8 +38,9 @@ export const UserProvider = ({ children }) => {
         if (res.status == 200) {
           localStorage.setItem("user_id", res.data.id);
           setUser(res.data);
-          history.push("/");
           setLoading(true);
+          history.push("/");
+          
         } else {
           alert('Something went wrong')
           setLoading(true);
@@ -152,6 +153,24 @@ export const UserProvider = ({ children }) => {
     })
     .catch((err) => {});
   }
+  const signupUser=(e)=>{
+    e.preventDefault();
+    setLoading(false);
+    const saveapi="api/signup/"
+    let userid=e.target.userid.value;
+    let location=e.target.location.value;
+    let age=e.target.age.value
+      const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const body = JSON.stringify({ userid:userid,location:location,age:age});
+      axios.post(saveapi,body,config).then((res)=>{
+        setLoading(true);
+        history.push("/login");
+      })
+  }
 
 
 
@@ -173,6 +192,7 @@ export const UserProvider = ({ children }) => {
     recom_book: recom_book,
     nullrecom:nullrecom,
     recombook:recombook,
+    signupUser:signupUser,
     
   };
 
