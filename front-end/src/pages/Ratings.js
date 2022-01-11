@@ -160,7 +160,7 @@ function Ratings(props) {
                     variant="contained"
                     color="success"
                     onClick={submitrating}
-                    style={{ marginTop: "20px" }}
+                    style={{ marginTop: "20px",width:"400px" }}
                   >
                     Submit
                   </Button>

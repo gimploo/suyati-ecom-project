@@ -12,6 +12,7 @@ function StoreBooks() {
   let { user } = useContext(UserContext);
   const [storebooks, setStorebooks] = useState([]);
   const [page, setPage] = useState(1);
+  const [storeload,setStoreLoad]=useState(true)
 
   useEffect(() => {
     Store();
@@ -19,12 +20,14 @@ function StoreBooks() {
   useEffect(() => {
     Store();
   }, [page]);
-  console.log(storebooks);
+  
 
   const Store = () => {
+    setStoreLoad(true)
     axios.get(`api/list?page=${page}`).then((res) => {
       if (res && res.status == 200) {
         setStorebooks(res.data.results);
+        setStoreLoad(false)
       }
     });
   };
@@ -42,12 +45,10 @@ function StoreBooks() {
               <div className="trending_books">
       
                 <img
-                  src={`http://${obj.image_url.replace('/http%3A/','')}`}
+                  src={`http://${obj.image_url.replace('/media/http%3A/','')}`}
                   alt=""
                   className="img_books"
                 ></img>
-
-               
                 <h>{obj.Book_title}</h>
                 <h>{obj.Book_Author}</h>
                 <div className="trending_icons">
@@ -73,11 +74,48 @@ function StoreBooks() {
               </div>
             ))}
           </>
-        ) : null}
+        ) :
+       <>
+       {storeload?<>
+        <div className="trending_skeleton">
+        <div className="skelton-box">
+        <Skeleton variant="rectangular"   width={210} height={118}/>
+        <Skeleton variant="text" animation="wave" />
+        <Skeleton variant="text" animation="wave" />
+        </div>
+        <div className="skelton-box">
+        <Skeleton variant="rectangular"   width={210} height={118}/>
+        <Skeleton variant="text" animation="wave" />
+        <Skeleton variant="text" animation="wave" />
+        </div>
+        <div className="skelton-box">
+        <Skeleton variant="rectangular"   width={210} height={118}/>
+        <Skeleton variant="text" animation="wave"  />
+        <Skeleton variant="text" animation="wave" />
+        </div>
+        <div className="skelton-box">
+        <Skeleton variant="rectangular"   width={210} height={118}/>
+        <Skeleton variant="text" animation="wave"  />
+        <Skeleton variant="text" animation="wave" />
+        </div>
+        <div className="skelton-box">
+        <Skeleton variant="rectangular"   width={210} height={118}/>
+        <Skeleton variant="text" animation="wave" />
+        <Skeleton variant="text" animation="wave" />
+        </div>
+        </div>
+       
+       
+       </>:null}
+
+        </>
+        }
+       
       </div>
+     
       <div className="store-icons">
         <Pagination
-          count={200000}
+          count={100000}
           page={page}
           onChange={loadmore}
           color="primary"
