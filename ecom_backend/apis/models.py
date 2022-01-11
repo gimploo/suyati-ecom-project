@@ -9,17 +9,16 @@ class userdata(models.Model):
     Age=models.IntegerField(null=True)
 
 def upload_path(instance,filename):
-    return '/'.join(['files',str(instance.discription),filename])
+    return ''
 class Books(models.Model):
-    id=models.PositiveIntegerField(primary_key=True)
     ISBN=models.CharField(max_length=200,unique=True, editable=True)
     Book_title= models.CharField(max_length=200)
     Book_Author =models.CharField(max_length=200)
     Year_of_Publication=models.IntegerField(null=True)
     Publisher=models.CharField(max_length=200)
-    img_url_S=models.FileField(upload_to=upload_path, null=True, blank=True)
-    img_url_M=models.FileField(upload_to=upload_path, null=True, blank=True)
-    img_url_L=models.FileField(upload_to=upload_path, null=True, blank=True)
+    img_url_S=models.ImageField(upload_to=upload_path, null=True, blank=True)
+    img_url_M=models.ImageField(upload_to=upload_path, null=True, blank=True)
+    img_url_L=models.ImageField(upload_to=upload_path, null=True, blank=True)
 
     def __str__(self):
         return self.Book_title 

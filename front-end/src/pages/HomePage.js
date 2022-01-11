@@ -10,6 +10,7 @@ import Rowbooks from "../components/Rowbooks";
 import Recombooks from "../components/RecomBook";
 import Button from "@mui/material/Button";
 import CardActions from "@mui/material/CardActions";
+import Storebooks from "../components/StoreBooks";
 import "../css/Rowbooks.css";
 import "../css/home.css";
 
@@ -155,13 +156,13 @@ const HomePage = () => {
                               <Recombooks />
                             </>
                           ) : (
-                            <>
+                            <div className="login-recom">
                               <Link to="/login">
                                 <Button variant="contained" color="success">
-                                  Rate
+                                   Login for Recommendation
                                 </Button>
                               </Link>
-                            </>
+                            </div>
                           )}
                         </div>
                       </>
@@ -202,6 +203,10 @@ const HomePage = () => {
                   </Link>
                 </div>
               )}
+              <div className="trending_box">
+              <h2 className="trending_tit">Store Books</h2>
+              <Storebooks/>
+              </div>
             </div>
           </>
         )}

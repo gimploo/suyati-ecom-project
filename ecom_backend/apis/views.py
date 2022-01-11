@@ -115,27 +115,22 @@ def trending_books(request):
         i+=1
     temp=[]
     res={}
+    print(li)
     for val in li:
-        try:
-            isbn=val
-            books=Books.objects.get(ISBN=isbn)
-            book_title=books.Book_title
-            book_auth=books.Book_Author
-            ISBN=books.ISBN
-            img_S=books.img_url_S
-            img_M=books.img_url_M
-            img_L=books.img_url_L
-            res["book_title"]=book_title
-            res["book_auth"]=book_auth
-            res["isbn"]=ISBN
-            res["img_small"]=str(img_S)
-            res["img_med"]=str(img_M)
-            res["img_Lar"]=str(img_L)
-            res_copy=res.copy()
-            temp.append(res_copy)
+
+        isbn=val
+        books=Books.objects.get(ISBN=isbn)
+        book_title=books.Book_title
+        book_auth=books.Book_Author
+        ISBN=books.ISBN
+        img_L=books.img_url_L
+        res["book_title"]=book_title
+        res["book_auth"]=book_auth
+        res["isbn"]=ISBN
+        res["img_Lar"]=str(img_L)
+        res_copy=res.copy()
+        temp.append(res_copy)
             
-        except:
-            return Response([])
             
     return Response(temp)
     
@@ -144,7 +139,7 @@ def trending_books(request):
 #pagination for the whole books in our store 
 class ApiView(ListAPIView):
     queryset=Books.objects.all()
-    serializer_class=BookSerializer
+    serializer_class=StoreSerializer
     pagination_class=PageNumberPagination
 
 @api_view(['GET'])
@@ -377,8 +372,34 @@ def savedata(request):
 
     return Response('search saved')
 
+# @api_view(['GET'])
+# def upload_all_records_to_Book(request):
+#     CSV_BOOKS_PATH = "./data/Books.csv"
+#     with open(CSV_BOOKS_PATH) as f:
+#         reader = csv.reader(f)
+#         next(reader)
+#         print("[*] Inserting new records into Books ....")
+#         for row in reader:
+#             print("[!] New record:", row)
 
+#             isbn                = row[0]
+#             title               = row[1]
+#             author              = row[2]
+#             year_of_publication = row[3]
+#             publisher           = row[4]
+#             img_url_l           = row[7]
 
+#             Books(
+#                 ISBN = isbn, 
+#                 Book_title = title, 
+#                 Book_Author = author, 
+#                 Year_of_Publication = year_of_publication, 
+#                 Publisher = publisher, 
+#                 img_url_L = img_url_l
+#             ).save()
+#             print("[!] Record successfully added!")
+
+#     return Response("[!] All records added!")
      
   
 

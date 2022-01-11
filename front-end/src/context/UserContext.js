@@ -153,6 +153,8 @@ export const UserProvider = ({ children }) => {
     .catch((err) => {});
   }
 
+
+
   let contextData = {
     user: user,
     rating: rating,
@@ -170,7 +172,8 @@ export const UserProvider = ({ children }) => {
     search:search,
     recom_book: recom_book,
     nullrecom:nullrecom,
-    recombook:recombook
+    recombook:recombook,
+    
   };
 
   return (
