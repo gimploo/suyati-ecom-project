@@ -20,7 +20,8 @@ urlpatterns = [
     path('api/addcart/',views.addcart,name='addcart'),
     path('api/getitems/<int:pk>/',views.getitems,name='getitem'),
     path('api/remove/<int:pk>/',views.removecart,name='removecart'),
-    path('api/inccartcount/<int:pk>/',views.inccart,name='inccart')
+    path('api/inccartcount/<int:pk>/',views.inccart,name='inccart'),
+    path('api/saveorder/<int:pk>/',views.order,name='order')
     # path('api/test/',views.upload_all_records_to_Book,name='upload')
 
 ]   

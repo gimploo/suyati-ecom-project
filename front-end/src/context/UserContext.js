@@ -199,9 +199,30 @@ export const UserProvider = ({ children }) => {
    }
  }
  const checkout=()=>{
-   setCartItems(null)
-   setCartCount(0)
+   const saveorderapi=`api/saveorder/${user.id}/`
+   var items={
+     'item':[]
+   }
+   {cartitems.map((itm)=>(
+     items.item.push({'id':`${itm.bookid}`,'qty':`${itm.Qty}`})
+   ))}
+  
+  const body=JSON.stringify({products:items.item});
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  axios.post(saveorderapi,body,config).then((res)=>{
+      emptycart();
+  })
+  
+
  }
+  const emptycart=()=>{
+    //get the cart items id and pass through the post req 
+  }
+ 
   let contextData = {
     user: user,
     rating: rating,

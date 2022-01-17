@@ -43,6 +43,7 @@ class Cart(models.Model):
     quantity=models.PositiveSmallIntegerField(null=True,blank=True,default=1)
   
 class Orders(models.Model):
-    orders=models.ManyToManyField(Cart,related_name='orders')
+    orders=models.ForeignKey(Books,on_delete=models.CASCADE,related_name='orders')
     created=models.DateField(auto_now_add=True)
     user_id=models.IntegerField()
+    quantity=models.PositiveSmallIntegerField(null=True,blank=True,default=1)

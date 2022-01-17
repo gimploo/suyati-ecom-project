@@ -460,6 +460,7 @@ def getitems(request,pk):
                 year_pub=i.Year_of_Publication
                 publisher=i.Publisher
                 isbn=i.ISBN 
+                ID=i.id
                 tmp['id']=x.id
                 tmp['Qty']=x.quantity
                 tmp['title']=title
@@ -468,6 +469,7 @@ def getitems(request,pk):
                 tmp['yearofpub']=year_pub
                 tmp['publisher']=publisher
                 tmp['isbn']=isbn
+                tmp['bookid']=ID
             tmpcopy=tmp.copy() 
             cartitems.append(tmpcopy)
 
@@ -509,6 +511,25 @@ def inccart(request,pk):
 
     return Response(ser.data)
 
+@api_view(['POST'])
+def order(request,pk):
+    tmp=[]
+    data=request.data
+    tmp.append(data)
+    for x in tmp:
+        for key,value in x.items():
+            val=value
+            for i in val:
+                bookid=list(i.values())[0]
+                Qty=list(i.values())[1]
+                book_obj=Books.objects.get(id=bookid)
+                instance=Orders.objects.create(
+                    orders=book_obj,
+                    user_id=pk, 
+                    quantity=Qty
+                )
+
+    return Response('ordered')
 
 
 
