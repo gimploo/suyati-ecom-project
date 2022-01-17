@@ -46,6 +46,8 @@
 }
 .carticon{
     margin-left: 110px;
+    color: black;
+    
 }
 .trending_skeleton{
     display: flex;

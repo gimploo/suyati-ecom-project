@@ -15,7 +15,12 @@ urlpatterns = [
     path('api/user_based_recom/<int:pk>/',views.book_recom,name='books_recom'),
     path('api/submitrating/',views.submitrating,name='submitrating'),
     path('api/savesearch/',views.savedata,name='savesearch'),
-    path('api/signup/',views.signup,name="signup")
+    path('api/signup/',views.signup,name="signup"),
+    path('api/items/',views.items,name='items'),
+    path('api/addcart/',views.addcart,name='addcart'),
+    path('api/getitems/<int:pk>/',views.getitems,name='getitem'),
+    path('api/remove/<int:pk>/',views.removecart,name='removecart'),
+    path('api/inccartcount/<int:pk>/',views.inccart,name='inccart')
     # path('api/test/',views.upload_all_records_to_Book,name='upload')
 
 ]   

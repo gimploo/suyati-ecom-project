@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import axios from "../Axios";
 
 const UserContext = createContext();
-export default UserContext;
+export default UserContext; 
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -16,6 +16,8 @@ export const UserProvider = ({ children }) => {
   const [networkalert, setNetworkalert] = useState(false);
   const [initial,setInitial]=useState(false);
   const [recombook, setRecomBook] = useState([]);
+  const [cartitems,setCartItems]=useState([]);
+  const [cartcount,setCartCount]=useState(0);
   
   const userid=localStorage.getItem('user_id')
   const history = useHistory();
@@ -23,6 +25,9 @@ export const UserProvider = ({ children }) => {
   useEffect(()=>{
     savesearch();
   },[sres])
+  useEffect(()=>{
+    updatecount();
+  },[cartitems])
   const search_api=`api/search/?temp=${search}`
   let loginUser = async (e) => { 
     setLoading(false);
@@ -79,6 +84,8 @@ export const UserProvider = ({ children }) => {
     setRating(null);
     setNetworkalert(false);
     setUseralert(false);
+    setCartCount(0)
+    setCartItems(null)
     localStorage.removeItem("user_id");
     history.replace("/");
   };
@@ -143,7 +150,7 @@ export const UserProvider = ({ children }) => {
           setRecomBook([{"value":"null"}])
         }
         if(res.data!=0){
-          console.log("not null")
+          
           setNullRecom(false)
           setRecomBook(res.data)
         }
@@ -172,8 +179,29 @@ export const UserProvider = ({ children }) => {
       })
   }
 
-
-
+  const itemadd=()=>{
+    
+    if(user && user.id){
+      
+      const userid=user.id
+      axios.get(`api/getitems/${userid}/`).then((res)=>{
+      setCartItems(res.data)
+      
+      })
+  
+    }
+  }
+ const updatecount=()=>{
+   if(cartitems && cartitems[0]){
+    var count=cartitems.length
+ 
+    setCartCount(count)
+   }
+ }
+ const checkout=()=>{
+   setCartItems(null)
+   setCartCount(0)
+ }
   let contextData = {
     user: user,
     rating: rating,
@@ -187,13 +215,16 @@ export const UserProvider = ({ children }) => {
     searchvalue:searchvalue,
     booksearch:booksearch,
     sres:sres,
-    initial:initial ,
+    initial:initial,
     search:search,
     recom_book: recom_book,
     nullrecom:nullrecom,
     recombook:recombook,
     signupUser:signupUser,
-    
+    itemadd:itemadd,
+    cartcount:cartcount,
+    cartitems:cartitems,
+    checkout:checkout
   };
 
   return (

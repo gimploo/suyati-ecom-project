@@ -36,3 +36,13 @@ class savesearch(models.Model):
     booktitle=models.CharField(max_length=200)
     def __str__(self):
         return self.booktitle
+
+class Cart(models.Model):
+    book=models.ForeignKey(Books,on_delete=models.CASCADE,related_name='book')
+    user_id=models.IntegerField()
+    quantity=models.PositiveSmallIntegerField(null=True,blank=True,default=1)
+  
+class Orders(models.Model):
+    orders=models.ManyToManyField(Cart,related_name='orders')
+    created=models.DateField(auto_now_add=True)
+    user_id=models.IntegerField()

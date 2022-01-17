@@ -26,8 +26,17 @@ class StoreSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField('get_image_url')
     class Meta:
         model=Books
-        fields=('Book_title','Book_Author','img_url_L','image_url','ISBN')
+        fields=('Book_title','Book_Author','img_url_L','image_url','ISBN','id')
     def get_image_url(self, obj):
         return obj.img_url_L.url
 
 
+class CartSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Cart
+        fields='__all__'
+
+class CountSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Cart
+        fields=('user_id','quantity')

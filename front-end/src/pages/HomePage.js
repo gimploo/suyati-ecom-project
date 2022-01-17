@@ -10,17 +10,63 @@ import Rowbooks from "../components/Rowbooks";
 import Recombooks from "../components/RecomBook";
 import Button from "@mui/material/Button";
 import CardActions from "@mui/material/CardActions";
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import Storebooks from "../components/StoreBooks";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+import axios from "../Axios";
 import "../css/Rowbooks.css";
 import "../css/home.css";
 
 const HomePage = () => {
-  let { userstate, sres, initial, user, recom_book } = useContext(UserContext);
-
+  const addcartapi="api/addcart/";
+  let { userstate, sres, initial, user, recom_book,itemadd } = useContext(UserContext);
+  const [open, setOpen] = useState(false);
+  const [openerr, setOpenErr] = useState(false);
+  const [loaditem,setLoadItem]=useState(false);
   useEffect(() => {
+    itemadd();
     userstate();
     recom_book();
+ 
   }, []);
+
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+    const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+  const handleClose1 = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenErr(false);
+  };
+  const addcart=(bookid)=>{
+    setLoadItem(true)
+    let user=localStorage.getItem('user_id')
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const body = JSON.stringify({ userid:user,Bookid:bookid});
+      axios.post(addcartapi,body,config).then((res)=>{
+        setLoadItem(false)
+        setOpen(true);
+        itemadd();
+      }).catch((err)=>{
+        setLoadItem(false)
+        setOpenErr(true)
+      })
+  }
+
 
   var search_value = localStorage.getItem("search_value");
 
@@ -124,6 +170,13 @@ const HomePage = () => {
                                           Rate
                                         </Button>
                                       </Link>
+                                      <Button
+                                        onClick={() => addcart(item.id)}
+                                        disableRipple
+                                        style={{ backgroundColor: "white" }}
+                                      >
+                                        <AddShoppingCartIcon className="carticon" />
+                                      </Button>
                                     </>
                                   ) : (
                                     <>
@@ -193,7 +246,7 @@ const HomePage = () => {
               <Rowbooks />
             </div>
             <div className="trending_box">
-              <h2 className="trending_tit">Recommendation</h2>
+              <h2 className="trending_tit">Recommendations</h2>
               {user && user.id ? (
                 <>
                   <Recombooks />
@@ -215,6 +268,23 @@ const HomePage = () => {
           </>
         )}
       </div>
+      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+            Book Added to Cart
+          </Alert>
+      </Snackbar>
+      {openerr?<>
+        <Snackbar open={openerr} autoHideDuration={6000} onClose={handleClose1}>
+          <Alert onClose={handleClose1} severity="error" sx={{ width: '100%' }}>
+           Oops Something Went Wrong try later!
+          </Alert>
+      </Snackbar>
+      </>:null}
+      <Snackbar open={loaditem}  >
+          <Alert  severity="warning" sx={{ width: '100%' }}>
+           Adding to cart...
+          </Alert>
+      </Snackbar>
     </div>
   );
 };

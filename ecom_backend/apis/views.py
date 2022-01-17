@@ -30,6 +30,7 @@ def login(request,pk):
 
 
 
+
 @api_view(['GET'])
 def User_Rating(request,pk):
     data=[]
@@ -93,7 +94,8 @@ def search(request):
     filterset = BookFilter(request.GET, queryset=queryset)
     if filterset.is_valid():
         queryset = filterset.qs 
-    for x in queryset:    
+    for x in queryset:
+        res["id"]=x.id   
         res["Book_title"]=x.Book_title
         res["Book_Author"]=x.Book_Author
         res["ISBN"]=x.ISBN
@@ -130,7 +132,9 @@ def trending_books(request):
         book_title=books.Book_title
         book_auth=books.Book_Author
         ISBN=books.ISBN
+        ID=books.id
         img_L=books.img_url_L
+        res['id']=ID
         res["book_title"]=book_title
         res["book_auth"]=book_auth
         res["isbn"]=ISBN
@@ -279,7 +283,9 @@ def book_recom(request,pk):
             book_title=book.Book_title
             book_auth=book.Book_Author
             book_isbn=book.ISBN
+            ID=book.id
             book_img=book.img_url_L
+            book_obj['id']=ID
             book_obj['title']=book_title
             book_obj['author']=book_auth
             book_obj['isbn']=book_isbn
@@ -342,7 +348,9 @@ def book_recom(request,pk):
             book_title=search_recom.Book_title
             book_auth=search_recom.Book_Author
             isbn=search_recom.ISBN
+            ID=search_recom.id
             img_L=search_recom.img_url_L
+            final_result["id"]=ID
             final_result["title"]=book_title
             final_result["author"]=book_auth
             final_result["isbn"]=isbn
@@ -417,6 +425,91 @@ def signup(request):
     )
 
     return Response('user created')
+
+@api_view(['GET'])
+def items(request):
+    items=Cart.objects.filter(user_id=5)
+    cartpro=CartSerializer(items,many=True)
+    return Response(cartpro.data)
+
+@api_view(['POST'])
+def addcart(request):
+    data=request.data
+    userid=data['userid']
+    bookid=data['Bookid']
+    book_obj=Books.objects.all().get(id=bookid)
+    instance=Cart.objects.create(
+        user_id=userid,
+        book=book_obj
+    )
+    return Response('added')
+
+@api_view(['GET'])
+def getitems(request,pk):
+    books=Cart.objects.all()
+    res=[]
+    tmp={}
+    cartitems=[]
+    for x in books:
+        if(x.user_id==pk):
+            res.append(x.book)
+            for i in res:
+                title=i.Book_title 
+                author=i.Book_Author
+                img=i.img_url_L
+                year_pub=i.Year_of_Publication
+                publisher=i.Publisher
+                isbn=i.ISBN 
+                tmp['id']=x.id
+                tmp['Qty']=x.quantity
+                tmp['title']=title
+                tmp['author']=author
+                tmp['img']=str(img)
+                tmp['yearofpub']=year_pub
+                tmp['publisher']=publisher
+                tmp['isbn']=isbn
+            tmpcopy=tmp.copy() 
+            cartitems.append(tmpcopy)
+
+    return Response(cartitems)
+
+@api_view(['POST'])
+def removecart(request,pk):
+    data=request.data
+    isbn=data['isbn']
+    userid=pk
+    cart=Cart.objects.all()
+    for x in cart:
+        if(x.user_id==userid and x.book.ISBN==isbn):
+            x.delete()
+    return Response('removed')
+
+@api_view(['POST'])
+def inccart(request,pk):
+    item=Cart.objects.get(id=pk)
+    data=request.data
+    action=data['quantity']
+    userid=data['user_id']
+    res={}
+    if(action=='add'):
+        item.quantity=item.quantity+1
+        updatedqty=item.quantity
+        res['user_id']=userid
+        res['quantity']=updatedqty
+    if(action=='sub'):
+        item.quantity=item.quantity-1
+        updatedqty=item.quantity
+        res['user_id']=userid
+        res['quantity']=updatedqty
+    ser=CountSerializer(instance=item,data=res) 
+    if ser.is_valid():
+        ser.save();
+    if item.quantity<=0:
+        item.delete();
+
+    return Response(ser.data)
+
+
 
 
 
