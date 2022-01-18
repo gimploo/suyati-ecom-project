@@ -220,7 +220,24 @@ export const UserProvider = ({ children }) => {
 
  }
   const emptycart=()=>{
-    //get the cart items id and pass through the post req 
+    setCartItems(null)
+    setCartCount(0)
+    const emptycartapi=`api/emptycart/${user.id}/`
+    var cartids={
+      'item':[]
+    }
+    {cartitems.map((itm)=>(
+      cartids.item.push({'id':`${itm.id}`})
+    ))}
+    const body=JSON.stringify({id:cartids.item})
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    axios.post(emptycartapi,body,config).then((res)=>{
+      console.log('CartEmptyed')
+    })
   }
  
   let contextData = {

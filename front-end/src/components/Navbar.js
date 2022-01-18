@@ -99,7 +99,7 @@ const Navbar = ({ toggle }) => {
 
         <div class="md:flex hidden font-semibold text-blue-800">
           <Link
-            to="/"
+            to="/orders"
             class="px-10 py-5  hover:text-blue-400  rounded-3xl drop-shadow"
           >
             My Orders

@@ -1,21 +1,26 @@
 import React, { useState, useEffect,useContext } from "react";
 import "../css/Cart.css";
+import {  Redirect } from 'react-router-dom';
 import UserContext from "../context/UserContext";
 import axios from '../Axios'
 function Orders() {
   let { user} = useContext(UserContext);
   const [order, setOrder] = useState([]);
   useEffect(() => {
-    axios.get(`api/getitems/${user.id}/`).then((res) => {
-      if (res && res.status == 200) {
-        setOrder(res.data);
-      }
-    });
+    if(user && user.id){
+      axios.get(`api/userorders/${user.id}/`).then((res) => {
+        if (res && res.status == 200) {
+          setOrder(res.data);
+        }
+      });
+    }
   }, []);
 
   return (
+    
     <div>
-      {order && order[0] ? (
+      {user && user.id?<>
+        {order && order[0] ? (
         <>
           {order.map((item) => (
             <div className="cartproducts">
@@ -26,14 +31,20 @@ function Orders() {
               ></img>
               <h>{item.title}</h>
               <h>{item.author}</h>
-              <h>{item.yearofpub}</h>
-              <h>{item.publisher}</h>
+             <h>Qty-{item.Qty}</h>
+             <h>Purchased at-{item.purchased}</h>
+              
             </div>
           ))}
         </>
       ) : (
         <>Empty Order</>
       )}
+      
+      </>:<>
+      <Redirect to='/login' />
+      
+      </>}
     </div>
   );
 }

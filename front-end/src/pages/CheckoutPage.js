@@ -3,16 +3,12 @@ import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 import UserContext from "../context/UserContext";
 function CheckoutPage() {
-    const [checkoutval,setCheckOutVal]=useState(false)
+    
     let {checkout} = useContext(UserContext);
     const emptycart=()=>{
-        console.log('hello')
-     setCheckOutVal(true) //-------------check-----------
+        checkout();
     }
-    useEffect(()=>{
-        console.log('heyy')
-      checkout();
-    },[checkoutval]) 
+
   return (
     <div>
       <p>Please select your Payment Method:</p>

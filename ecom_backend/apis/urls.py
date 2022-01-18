@@ -21,7 +21,10 @@ urlpatterns = [
     path('api/getitems/<int:pk>/',views.getitems,name='getitem'),
     path('api/remove/<int:pk>/',views.removecart,name='removecart'),
     path('api/inccartcount/<int:pk>/',views.inccart,name='inccart'),
-    path('api/saveorder/<int:pk>/',views.order,name='order')
+    path('api/saveorder/<int:pk>/',views.order,name='order'),
+    path('api/emptycart/<int:pk>/',views.emptycart,name='emptycart'),
+    path('api/userorders/<int:pk>/',views.userorders,name='userorders'),
+    path('api/test/<int:pk>/',views.test,name='test'),
     # path('api/test/',views.upload_all_records_to_Book,name='upload')
 
 ]   

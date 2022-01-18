@@ -124,7 +124,7 @@ def trending_books(request):
         i+=1
     temp=[]
     res={}
-    print(li)
+  
     for val in li:
 
         isbn=val
@@ -343,8 +343,8 @@ def book_recom(request,pk):
         final_result={}
         temp=[]
         for x in res:
-            pk=str(x)
-            search_recom=Books.objects.get(Book_title=pk)
+            pk1=str(x)
+            search_recom=Books.objects.get(Book_title=pk1)
             book_title=search_recom.Book_title
             book_auth=search_recom.Book_Author
             isbn=search_recom.ISBN
@@ -357,10 +357,75 @@ def book_recom(request,pk):
             final_result["img"]=str(img_L)
             final_result_copy=final_result.copy()
             final_book_obj.append(final_result_copy)
-        
-
     except:
         return Response(final_book_obj)
+    ####  Purchased BASED FILTERING  ########
+    cart_title=[]
+    books=Books.objects.all()
+    ratings=Rating.objects.all()
+    c=[]
+    d=[]
+    e=[]
+    f=[]
+    try:
+   
+        latestpurchase=Orders.objects.filter(user_id=pk).order_by('-id')[0]
+        cart_title.append(latestpurchase.orders.Book_title)
+        cart_item_booktitle=cart_title[0]
+    except Exception as e:
+        print(e)
+        return Response(final_book_obj) 
+    
+    for item in books:
+        c=[item.id,item.ISBN,item.Book_title]
+        d+=[c]
+    # temp_1 = pd.DataFrame(y,columns=['book_id','ISBN','book_title'])
+    # books_df=temp_1.iloc[0:10000][:10000]
+    books_df = pd.DataFrame(d,columns=['book_id','ISBN','book_title'])
+    for item in ratings:
+        e=[item.user_id,item.isbn,item.rating]
+        f+=[e]
+    ratings_df=pd.DataFrame(f,columns=['user_id','ISBN','rating'])
+    temp=pd.merge(ratings_df,books_df,on='ISBN')
+    ratings=pd.DataFrame(temp.groupby('book_title')['rating'].mean())
+    ratings['number_of_ratings']=temp.groupby('book_title')['rating'].count()
+    book_matrix_UII=temp.pivot_table(index='user_id',columns='book_title',values='rating')
+    ratings.sort_values('number_of_ratings',ascending=False).head()
+    try:
+        user_searched_book=book_matrix_UII[cart_item_booktitle]
+        similar_to_search_book=book_matrix_UII.corrwith(user_searched_book)
+        corr_searched_book=pd.DataFrame(similar_to_search_book,columns=['correlation'])
+        corr_searched_book.dropna(inplace=True)
+        df1=pd.DataFrame(corr_searched_book)
+        itr=len(df1.index)
+        res1=[]
+        i=0
+        while i<itr:
+            val=df1.index[i]
+            res1.append(val)
+            i+=1
+        final_result1={}
+        temp1=[]
+        for x in res1:
+            pk=str(x)
+            search_recom=Books.objects.get(Book_title=pk)
+            book_title=search_recom.Book_title
+            book_auth=search_recom.Book_Author
+            isbn=search_recom.ISBN
+            ID=search_recom.id
+            img_L=search_recom.img_url_L
+            final_result1["id"]=ID
+            final_result1["title"]=book_title
+            final_result1["author"]=book_auth
+            final_result1["isbn"]=isbn
+            final_result1["img"]=str(img_L)
+            final_result_copy1=final_result1.copy()
+            final_book_obj.append(final_result_copy1)
+  
+        
+    except:
+        return Response(final_book_obj)
+    
 
     return Response(final_book_obj)
 
@@ -368,7 +433,6 @@ def book_recom(request,pk):
 @api_view(['POST'])
 def submitrating(request):
     data=request.data
-    print(data)
     datas=Rating.objects.create(
         user_id=data['userid'],
         isbn=data['isbn'],
@@ -530,6 +594,123 @@ def order(request,pk):
                 )
 
     return Response('ordered')
+
+@api_view(['POST'])
+def emptycart(request,pk):
+    tmp=[]
+    data=request.data
+    tmp.append(data)
+    for x in tmp:
+        for key,value in x.items():
+            val=value
+            for i in val:
+                cartid=list(i.values())[0] 
+                cart=Cart.objects.get(id=cartid)
+                cart.delete()
+    return Response('Removed')
+
+
+@api_view(['GET'])
+def userorders(request,pk):
+    ordered_obj=[]
+    res=[]
+    tmp={}
+    product_obj=Orders.objects.all()
+    for x in product_obj:
+        if(x.user_id==pk):
+            ordered_obj.append(x)
+            for i in ordered_obj:
+                title=i.orders.Book_title
+                author=i.orders.Book_Author
+                img=i.orders.img_url_L
+                tmp['title']=title
+                tmp['author']=author
+                tmp['img']=str(img)
+                tmp['Qty']=x.quantity
+                tmp['purchased']=x.created
+            tmp_copy=tmp.copy()
+            res.append(tmp_copy)
+
+    return Response(res) 
+    
+
+
+@api_view(['GET'])
+def test(request,pk):
+    # books=Books.objects.all()
+    # ratings=Rating.objects.all()
+    # final_book_obj=[]
+    # cart_title=[]
+    # books=Books.objects.all()
+    # ratings=Rating.objects.all()
+    # c=[]
+    # d=[]
+    # e=[]
+    # f=[]
+    # try:
+    #     # latestsearch=savesearch.objects.filter(userid=pk).order_by('-id')[0]
+    #     # title.append(latestsearch.booktitle)
+    #     # booktitle=title[0]
+    #     latestpurchase=Orders.objects.filter(user_id=pk).order_by('-id')[0]
+    #     cart_title.append(latestpurchase.orders.Book_title)
+    #     cart_item_booktitle=cart_title[0]
+    # except:
+    #     return Response(final_book_obj)
+    
+    # for item in books:
+    #     c=[item.id,item.ISBN,item.Book_title]
+    #     d+=[c]
+    # # temp_1 = pd.DataFrame(y,columns=['book_id','ISBN','book_title'])
+    # # books_df=temp_1.iloc[0:10000][:10000]
+    # books_df = pd.DataFrame(d,columns=['book_id','ISBN','book_title'])
+    # for item in ratings:
+    #     e=[item.user_id,item.isbn,item.rating]
+    #     f+=[e]
+    # ratings_df=pd.DataFrame(f,columns=['user_id','ISBN','rating'])
+    # temp=pd.merge(ratings_df,books_df,on='ISBN')
+    # ratings=pd.DataFrame(temp.groupby('book_title')['rating'].mean())
+    # ratings['number_of_ratings']=temp.groupby('book_title')['rating'].count()
+    # book_matrix_UII=temp.pivot_table(index='user_id',columns='book_title',values='rating')
+    # ratings.sort_values('number_of_ratings',ascending=False).head()
+    # try:
+    #     user_searched_book=book_matrix_UII[cart_item_booktitle]
+    #     similar_to_search_book=book_matrix_UII.corrwith(user_searched_book)
+    #     corr_searched_book=pd.DataFrame(similar_to_search_book,columns=['correlation'])
+    #     corr_searched_book.dropna(inplace=True)
+    #     df1=pd.DataFrame(corr_searched_book)
+    #     itr=len(df1.index)
+    #     res1=[]
+    #     i=0
+    #     while i<itr:
+    #         val=df1.index[i]
+    #         res1.append(val)
+    #         i+=1
+    #     final_result1={}
+    #     temp1=[]
+    #     for x in res1:
+    #         pk=str(x)
+    #         search_recom=Books.objects.get(Book_title=pk)
+    #         book_title=search_recom.Book_title
+    #         book_auth=search_recom.Book_Author
+    #         isbn=search_recom.ISBN
+    #         ID=search_recom.id
+    #         img_L=search_recom.img_url_L
+    #         final_result1["id"]=ID
+    #         final_result1["title"]=book_title
+    #         final_result1["author"]=book_auth
+    #         final_result1["isbn"]=isbn
+    #         final_result1["img"]=str(img_L)
+    #         final_result_copy1=final_result1.copy()
+    #         final_book_obj.append(final_result_copy1)
+        
+
+    # except:
+    #     return Response(final_book_obj)
+
+    
+    return Response(final_book_obj)
+
+
 
 
 
