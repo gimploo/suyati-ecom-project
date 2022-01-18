@@ -24,7 +24,4 @@ urlpatterns = [
     path('api/saveorder/<int:pk>/',views.order,name='order'),
     path('api/emptycart/<int:pk>/',views.emptycart,name='emptycart'),
     path('api/userorders/<int:pk>/',views.userorders,name='userorders'),
-    
-    # path('api/test/',views.upload_all_records_to_Book,name='upload')
-
 ]   
