@@ -30,22 +30,18 @@ export const UserProvider = ({ children }) => {
   },[cartitems])
   const search_api=`api/search/?temp=${search}`
   let loginUser = async (e) => { 
-    setLoading(false);
     e.preventDefault();
-
+    setLoading(false);
     let userid = e.target.userid.value;
-
     await axios
       .get(`api/login/${userid}/`)
 
       .then((res) => {
-        
+        setLoading(true);
         if (res.status == 200) {
           localStorage.setItem("user_id", res.data.id);
           setUser(res.data);
-          setLoading(true);
           history.push("/");
-          
         } else {
           alert('Something went wrong')
           setLoading(true);
@@ -86,6 +82,7 @@ export const UserProvider = ({ children }) => {
     setUseralert(false);
     setCartCount(0)
     setCartItems(null)
+    setLoading(true)
     localStorage.removeItem("user_id");
     history.replace("/");
   };

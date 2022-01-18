@@ -2,7 +2,16 @@ api/login/<int:pk>/    #api for the login at the place of <int:pk> we needed to 
 api/user_rating/<int:pk>/  #api for the users rating at the place of <int:pk> pass user id 
 api/book/<int:pk>/  #to view a specfic book pass the book id at <int:pk>
 api/search/?temp=kitchen/ #the search api
-example : http://127.0.0.1:8000/api/book/11/
-example : http://127.0.0.1:8000/api/user_rating/2/
-example : http://127.0.0.1:8000/api/login/2/
-example : http://127.0.0.1:8000/api/search/?temp=kitchen/
+api/trending/ #the trending books in the store
+api/user_based_recom/<int:pk>/ # ML part Collabrative filtering based on user based and item based
+api/submitrating/ # Submiting an book rating
+api/savesearch/ # saving the latest searches of a specfic user
+api/signup/ # User Signup 
+api/items/ # user cart items
+api/addcart/ # adding to cart
+api/getitems/<int:pk>/ # getting users Cart items
+api/remove/<int:pk>/ # removeing from an cart
+api/inccartcount/<int:pk>/ #cart product Qty increasing
+api/saveorder/<int:pk>/ # placing order
+api/emptycart/<int:pk>/ #making cart empty after purchase
+api/userorders/<int:pk>/ # user order

@@ -2,7 +2,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 
-const BookCard = ({ author, imgUrl, title, rating,checkrated }) => {
+const BookCard = ({ author, imgUrl, title, rating }) => {
   const [value, setValue] = React.useState(2);
   console.log(value)
   return (
