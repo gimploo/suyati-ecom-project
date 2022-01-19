@@ -47,3 +47,6 @@ class Orders(models.Model):
     created=models.DateField(auto_now_add=True)
     user_id=models.IntegerField()
     quantity=models.PositiveSmallIntegerField(null=True,blank=True,default=1)
+    order_user_name=models.CharField(max_length=200)
+    order_address=models.TextField(max_length=500)
+    delevery_status=models.BooleanField(null=True,blank=True)

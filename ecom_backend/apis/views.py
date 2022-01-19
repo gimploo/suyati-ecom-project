@@ -588,14 +588,20 @@ def order(request,pk):
     for x in tmp:
         for key,value in x.items():
             val=value
+            print(tmp)
+            
             for i in val:
                 bookid=list(i.values())[0]
                 Qty=list(i.values())[1]
+                ordername=list(i.values())[2]
+                address=list(i.values())[3]
                 book_obj=Books.objects.get(id=bookid)
                 instance=Orders.objects.create(
                     orders=book_obj,
                     user_id=pk, 
-                    quantity=Qty
+                    quantity=Qty,
+                    order_user_name=ordername,
+                    order_address=address
                 )
 
     return Response('ordered')

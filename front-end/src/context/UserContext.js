@@ -1,6 +1,7 @@
 import { createContext, useState,useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import axios from "../Axios";
+import ManageOrder from "../pages/ManageOrder";
 
 const UserContext = createContext();
 export default UserContext; 
@@ -195,15 +196,20 @@ export const UserProvider = ({ children }) => {
     setCartCount(count)
    }
  }
- const checkout=()=>{
+ const checkout=(e)=>{
+  
    const saveorderapi=`api/saveorder/${user.id}/`
    var items={
      'item':[]
    }
+   var ordername=e.target.ordername.value
+   var address=e.target.address.value
    {cartitems.map((itm)=>(
-     items.item.push({'id':`${itm.bookid}`,'qty':`${itm.Qty}`})
+     items.item.push({'id':`${itm.bookid}`,'qty':`${itm.Qty}`,'ordername':ordername,'address':address})
    ))}
-  
+
+
+
   const body=JSON.stringify({products:items.item});
   const config = {
     headers: {
@@ -212,10 +218,12 @@ export const UserProvider = ({ children }) => {
   };
   axios.post(saveorderapi,body,config).then((res)=>{
       emptycart();
+      history.push("/manageorder")
   })
   
 
  }
+
   const emptycart=()=>{
     setCartItems(null)
     setCartCount(0)
