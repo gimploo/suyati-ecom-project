@@ -33,11 +33,15 @@ function Orders() {
               <h>{item.author}</h>
              <h>Qty-{item.Qty}</h>
              <h>Purchased at-{item.purchased}</h>
-              
+             {item.Status?<>
+              <h>Delevered-Yes</h>
+             </>:<>
+             <h>Delevered-No</h>
+             </>}
             </div>
           ))}
         </>
-      ) : (
+      ) : ( 
         <>Empty Order</>
       )}
       

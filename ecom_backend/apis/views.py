@@ -639,6 +639,7 @@ def userorders(request,pk):
                 tmp['img']=str(img)
                 tmp['Qty']=x.quantity
                 tmp['purchased']=x.created
+                tmp['Status']=x.delevery_status
             tmp_copy=tmp.copy()
             res.append(tmp_copy)
 
