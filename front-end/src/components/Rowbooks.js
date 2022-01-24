@@ -1,7 +1,8 @@
 import React, { useEffect, useState,useContext } from "react";
 import "../css/Rowbooks.css";
 import { Link, Redirect } from "react-router-dom";
-import axios from "../Axios";
+// import axios from "../Axios";
+import axios from 'axios';
 import UserContext from "../context/UserContext";
 import Button from '@mui/material/Button';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
@@ -10,20 +11,17 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 
 function Rowbooks() {
-  const addcartapi="api/addcart/";
-  let { user,itemadd } = useContext(UserContext);
-  const [trending, setTrending] = useState([]); 
+  const addcartapi="http://127.0.0.1:8000/api/addcart/";
+  let { user,itemadd,trending } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [openerr, setOpenErr] = useState(false);
   const [loaditem,setLoadItem]=useState(false);
 
-  useEffect(() => {
-    axios.get("api/trending/").then((res) => {
-      if (res.status == 200 && res.data) {
-        setTrending(res.data);
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   fetchtrending()
+  // },[!trending]);
+
+
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
@@ -63,7 +61,7 @@ function Rowbooks() {
   return (
     <div className="row">
       <div className="posters">
-        {trending[0] ? (
+        {trending && trending[0] ? (
           <>
             {trending.map((obj) => (
               <>

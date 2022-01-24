@@ -20,7 +20,7 @@ import "../css/home.css";
 
 const HomePage = () => {
   const addcartapi="api/addcart/";
-  let { userstate, sres, initial, user, recom_book,itemadd } = useContext(UserContext);
+  let { userstate, sres, initial, user, recom_book,itemadd,fetchtrending,trending,Store,storebooks } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [openerr, setOpenErr] = useState(false);
   const [loaditem,setLoadItem]=useState(false);
@@ -28,9 +28,20 @@ const HomePage = () => {
     itemadd();
     userstate();
     recom_book();
+   
+    console.log("called home")
  
   }, []);
+  if(trending && trending[0]){
+   
+  }else{
+    fetchtrending();
+  }
+  if(storebooks && storebooks[0]){
 
+  }else{
+    Store();
+  }
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
@@ -123,26 +134,28 @@ const HomePage = () => {
               <>
                 {sres.length != 0 ? (
                   <>
-                    {sres.length <= 3 ? (
+                  {/* FIXME:*/}
+                  
+                    {sres.length <= 10 ? (
                       <>
                         <h2 className="trending_tit">
                           Showing results For {search_value}
                         </h2>
                         <div
                           className="searchresults"
-                          style={{ backgroundColor: "#e6f2ff" }}
+                          style={{ backgroundColor: "#D3D3D3" }}
                         >
                           {sres.map((item, key) => (
                             <div
                               style={{
-                                backgroundColor: "#e6f2ff",
+                                backgroundColor: "#D3D3D3",
                                 padding: "20px",
                               }}
                             >
                               <Card sx={{ maxWidth: 330 }}>
                                 <img
                                   src={item.img}
-                                  style={{ height: "260px", width: "330px" }}
+                                  style={{ height: "260px", width: "300px" }}
                                 ></img>
                                 <CardContent>
                                   <Typography

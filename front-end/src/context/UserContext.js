@@ -1,8 +1,7 @@
 import { createContext, useState,useEffect } from "react";
-import { Redirect, useHistory } from "react-router-dom";
-import axios from "../Axios";
-import ManageOrder from "../pages/ManageOrder";
-
+import {  useHistory } from "react-router-dom";
+// import axios from "../Axios";
+import axios from 'axios'
 const UserContext = createContext();
 export default UserContext; 
 
@@ -19,6 +18,11 @@ export const UserProvider = ({ children }) => {
   const [recombook, setRecomBook] = useState([]);
   const [cartitems,setCartItems]=useState([]);
   const [cartcount,setCartCount]=useState(0);
+  const [trending, setTrending] = useState([]); 
+  const [storebooks, setStorebooks] = useState([]);
+  const [page, setPage] = useState(1);
+  const [state, setState] = useState(false);
+  const [searchload,setSearchload]=useState(false);
   
   const userid=localStorage.getItem('user_id')
   const history = useHistory();
@@ -29,6 +33,9 @@ export const UserProvider = ({ children }) => {
   useEffect(()=>{
     updatecount();
   },[cartitems])
+  useEffect(() => {
+    Store();
+  }, [page]);
   const search_api=`api/search/?temp=${search}`
   let loginUser = async (e) => { 
     e.preventDefault();
@@ -63,7 +70,14 @@ export const UserProvider = ({ children }) => {
         }
       });
   };
-  
+  const handleClick = () => {
+    console.log('heyy')
+    setState(true);
+  };
+ 
+  const handleClose = () => {
+    setState(false);
+  };
   const user_rating = () => {
     axios.get(`api/user_rating/${userid}/`)
 
@@ -84,6 +98,7 @@ export const UserProvider = ({ children }) => {
     setCartCount(0)
     setCartItems(null)
     setLoading(true)
+    setSearchload(false)
     localStorage.removeItem("user_id");
     history.replace("/");
   };
@@ -105,13 +120,15 @@ export const UserProvider = ({ children }) => {
     event.preventDefault()
     setSearch(value)
   };
+ 
   const booksearch=()=>{
+    setSearchload(true)
      axios.get(search_api).then((res)=>{
        if(res && res.status==200){
          localStorage.setItem('search_value',search) 
         setSres(res.data)
         setInitial(true)
-        
+        setSearchload(false)
        }
      }).catch((err)=>{
        alert(err)
@@ -137,13 +154,14 @@ export const UserProvider = ({ children }) => {
     }
   }
   
-  const recom_book=()=>{
-    axios
-    .get(`api/user_based_recom/${userid}/`)
+  const recom_book=async()=>{
+    
+   await axios
+    .get(`api/recommentation/${userid}/`)
     .then((res) => {
       if (res && res.status == 200) {
         if(res.data==0){
-          console.log("null")
+         
           setNullRecom(true)
           setRecomBook([{"value":"null"}])
         }
@@ -241,10 +259,29 @@ export const UserProvider = ({ children }) => {
       },
     };
     axios.post(emptycartapi,body,config).then((res)=>{
-      console.log('CartEmptyed')
+     
     })
   }
- 
+  const fetchtrending=async()=>{
+   await axios.get("api/trending/").then((res)=>{
+    setTrending(res.data);
+   })
+  }
+
+  const Store =async () => {
+    handleClick();
+  await axios.get(`api/list?page=${page}`).then((res) => {
+      if (res && res.status == 200) {
+        setStorebooks(res.data.results);
+        handleClose();
+        
+      }
+    });
+  }
+
+
+
+
   let contextData = {
     user: user,
     rating: rating,
@@ -267,7 +304,16 @@ export const UserProvider = ({ children }) => {
     itemadd:itemadd,
     cartcount:cartcount,
     cartitems:cartitems,
-    checkout:checkout
+    checkout:checkout,
+    fetchtrending:fetchtrending,
+    trending:trending,
+    Store:Store,
+    storebooks:storebooks,
+    page:page,
+    setPage:setPage,
+    handleClick:handleClick,
+    state:state,
+    searchload:searchload
   };
 
   return (

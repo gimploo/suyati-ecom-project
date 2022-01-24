@@ -8,6 +8,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import COMPANYLOGO from "../assets/images/Suyati-logo-01.svg";
 import UserContext from "../context/UserContext";
 import Avatar from "@mui/material/Avatar";
+import LinearProgress from '@mui/material/LinearProgress';
 
 const SearchBar = () => {
   let { searchvalue, booksearch } = useContext(UserContext);
@@ -26,7 +27,7 @@ const SearchBar = () => {
 };
 
 const Navbar = ({ toggle }) => {
-  let { user, logoutUser } = useContext(UserContext);
+  let { user, logoutUser,searchload } = useContext(UserContext);
 
   const LeftNavbar = () => {
     return (
@@ -141,6 +142,9 @@ const Navbar = ({ toggle }) => {
 
   return (
     <header class="bg-white border-b-2 drop-shadow-lg ">
+      {searchload?<>
+        <LinearProgress color="secondary" />
+      </>:null}
       <div class="w-full h-30 justify-between mt-2 start-end p-2 max-w-full max-h-full flex space-x-10 md:w-auto md:justify-center mx-auto ">
         <LeftNavbar />
         <SearchBar />

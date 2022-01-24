@@ -8,26 +8,21 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Pagination from "@mui/material/Pagination";
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import Slide from '@mui/material/Slide';
 
 function StoreBooks() {
-  let { user,itemadd } = useContext(UserContext);
-  const [storebooks, setStorebooks] = useState([]);
-  const [page, setPage] = useState(1);
+    
+    let { user,itemadd,Store,page,storebooks,setPage,handleClick,state} = useContext(UserContext);
+  // const [storebooks, setStorebooks] = useState([]);
+  // const [page, setPage] = useState(1);
   const [open, setOpen] = useState(false);
   const [openerr, setOpenErr] = useState(false);
   const [loaditem,setLoadItem]=useState(false);
   const addcartapi="api/addcart/"
 
-  useEffect(() => {
-    Store();
-  }, []);
-  useEffect(() => {
-    Store();
-  }, [page]);
 
 
 
-   
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
@@ -46,15 +41,17 @@ function StoreBooks() {
 
     setOpenErr(false);
   };
-  const Store = () => {
-    axios.get(`api/list?page=${page}`).then((res) => {
-      if (res && res.status == 200) {
-        setStorebooks(res.data.results);
-      }
-    });
-  };
+  // const Store = () => {
+  //   axios.get(`api/list?page=${page}`).then((res) => {
+  //     if (res && res.status == 200) {
+  //       setStorebooks(res.data.results);
+  //     }
+  //   });
+  // };
 
   const loadmore = (event, value) => {
+    
+    
     setPage(value);
   };
   const addcart=(bookid)=>{
@@ -127,6 +124,10 @@ function StoreBooks() {
           color="primary"
         />
       </div>
+     
+    
+      
+     
       <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
             Book Added to Cart
@@ -144,7 +145,15 @@ function StoreBooks() {
            Adding to cart...
           </Alert>
       </Snackbar>
+ 
+      { state?<>
+        <Snackbar
+        open={state}
+        message="Loading..."
+      />
+      </>:null}
     </div>
+
   );
 }
 

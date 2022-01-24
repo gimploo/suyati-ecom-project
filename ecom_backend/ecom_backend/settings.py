@@ -94,15 +94,29 @@ WSGI_APPLICATION = 'ecom_backend.wsgi.application'
 
 DATABASES = {
     'default': {
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'NAME':'ecomdb',
+        # 'USER':'admin',
+        # 'PASSWORD':'awsdb123#',
+        # 'HOST':'ecomplugin.cbok3wjn6gxp.us-east-1.rds.amazonaws.com',
+        # 'PORT':'3306',
         # 'ENGINE': 'django.db.backends.postgresql',
         # 'NAME':'ecom_plugin_db_live',
         # 'USER':'libinluvis',
         # 'PASSWORD':'awsdb123#',
         # 'HOST':'database-1.cowjcxof11l4.us-east-2.rds.amazonaws.com',
         # 'PORT':'5432'
+
+
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-        
+
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': 'test2',
+        # 'USER':'postgres',
+        # 'PASSWORD':'db123#',
+        # 'HOST':'localhost',
+        # 'PORT':'5432',
     } 
 }
 
@@ -150,5 +164,5 @@ STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 5
+    'PAGE_SIZE': 4
 }

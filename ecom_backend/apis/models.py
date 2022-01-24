@@ -6,16 +6,16 @@ from django.db import models
 class userdata(models.Model):
     id = models.PositiveIntegerField(primary_key=True)
     Location=models.CharField(max_length=200)
-    Age=models.IntegerField(null=True,blank=True)
+    Age=models.CharField(max_length=100,null=True,blank=True)
 
 def upload_path(instance,filename):
     return ''
 class Books(models.Model):
     ISBN=models.CharField(max_length=200,unique=True, editable=True)
-    Book_title= models.CharField(max_length=200)
-    Book_Author =models.CharField(max_length=200)
-    Year_of_Publication=models.IntegerField(null=True)
-    Publisher=models.CharField(max_length=200)
+    Book_title= models.CharField(max_length=500)
+    Book_Author =models.CharField(max_length=500)
+    Year_of_Publication=models.CharField(null=True,max_length=300)
+    Publisher=models.CharField(max_length=300)
     img_url_S=models.ImageField(upload_to=upload_path, null=True, blank=True)
     img_url_M=models.ImageField(upload_to=upload_path, null=True, blank=True)
     img_url_L=models.ImageField(upload_to=upload_path, null=True, blank=True)

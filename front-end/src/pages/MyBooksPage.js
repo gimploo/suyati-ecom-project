@@ -20,12 +20,12 @@ const MyBooksPage = () => {
           </div>
         <div className="rated_outerbox">
           {loading?
-          <div className="skelton-box">
+          <div className="loader-box">
           <CircularProgress color="success" />
           </div>:
           <>
           {rating && rating[0] ? (
-            <>
+            <div>
               {rating.map((element, index) => (
                 <BookCard
                   title={element.book_title}
@@ -34,7 +34,7 @@ const MyBooksPage = () => {
                   imgUrl={element.img_Lar}
                 />
               ))}
-            </>
+            </div>
           ) : (
             <div className="not_rated">
               <h1 style={{fontSize:"30px",marginBottom:"20px"}}>User Not Rated Yet</h1>

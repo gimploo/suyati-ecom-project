@@ -14,7 +14,7 @@ const BookCard = ({ author, imgUrl, title, rating }) => {
       ></Box>
 
       <div className="container">
-        <div className="book_img">
+        <div className="book_img" >
           <img src={imgUrl} style={{ height: "150px", width: "150px" }}></img>
           <div className="book_details">
             <div className="book_horiz">
@@ -29,7 +29,7 @@ const BookCard = ({ author, imgUrl, title, rating }) => {
               <h2 className="book_tit">Ratings - </h2>
               <p style={{ marginTop: "5px", marginLeft: "10px" }}>
                     <Rating name="read-only" value={rating / 2} readOnly />
-                  </p>
+              </p>
         
             </div>
           </div>
