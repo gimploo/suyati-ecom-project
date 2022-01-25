@@ -88,7 +88,7 @@ function Ratings(props) {
               <div className="book_img">
                 <img
                   src={book.img}
-                  style={{ height: "150px", width: "150px" }}
+                  style={{ height: "150px", width: "150px" ,marginTop:"20px"}}
                 ></img>
                 <div className="book_details">
                   <div className="book_horiz">

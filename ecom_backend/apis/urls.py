@@ -25,7 +25,7 @@ urlpatterns = [
     path('api/emptycart/<int:pk>/',views.emptycart,name='emptycart'),
     path('api/userorders/<int:pk>/',views.userorders,name='userorders'),
     path('api/recommentation/<int:pk>/',views.recommentation,name='recommentation'),
-    # path('api/upload',views.upload_data,name='upload'),
+    path('api/upload',views.upload_data,name='upload'),
     
    
 ]   

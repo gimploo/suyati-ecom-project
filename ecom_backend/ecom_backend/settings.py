@@ -101,10 +101,10 @@ DATABASES = {
         # 'HOST':'ecomplugin.cbok3wjn6gxp.us-east-1.rds.amazonaws.com',
         # 'PORT':'3306',
         # 'ENGINE': 'django.db.backends.postgresql',
-        # 'NAME':'ecom_plugin_db_live',
-        # 'USER':'libinluvis',
+        # 'NAME':'ecomdblive',
+        # 'USER':'postgres',
         # 'PASSWORD':'awsdb123#',
-        # 'HOST':'database-1.cowjcxof11l4.us-east-2.rds.amazonaws.com',
+        # 'HOST':'database-1.cluster-ro-cbok3wjn6gxp.us-east-1.rds.amazonaws.com',
         # 'PORT':'5432'
 
 
@@ -164,5 +164,5 @@ STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 4
+    'PAGE_SIZE': 5
 }

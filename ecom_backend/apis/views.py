@@ -107,7 +107,7 @@ def search(request):
         temp.append(res_copy)
     return Response(temp)
 
-
+# {TODO: SMALL DATABASE CHANGE SCRIPT}
 @api_view(['GET'])
 def trending_books(request):
     ratings=Rating.objects.all()
@@ -138,18 +138,30 @@ def trending_books(request):
         ID=books.id
         img_L=books.img_url_L
         res['id']=ID
-        res["book_title"]=book_title
-        res["book_auth"]=book_auth
+        res["title"]=book_title
+        res["author"]=book_auth
         res["isbn"]=ISBN
-        res["img_Lar"]=str(img_L)
+        res["img"]=str(img_L)
         res_copy=res.copy()
         temp.append(res_copy)
             
             
     return Response(temp)
+    # temp=[]
+    # res={}
+    # ids=[507,889,1229,1586,1003]
+    # for x in ids:
+    #     book=Books.objects.get(id=x)
+    #     res['title']=book.Book_title
+    #     res['author']=book.Book_Author
+    #     res['img']=str(book.img_url_L)
+    #     res['isbn']=book.ISBN
+    #     res['id']=book.id
+    #     res_copy=res.copy()
+    #     temp.append(res_copy)           
+    # return Response(temp)
     
     
-
 #pagination for the whole books in our store 
 class ApiView(ListAPIView):
     queryset=Books.objects.all()
@@ -570,38 +582,43 @@ def userorders(request,pk):
     
 
 
-# @api_view(['POST'])
-# def upload_data(request):
-#     file=request.FILES["file"]
-#     content =file.read()
-#     file_content=ContentFile(content)
-#     file_name=fs.save(
-#     "_tmp.csv" , file_content
-#     )
-#     tmp_file=fs.path(file_name)
-#     csv_file=open(tmp_file,errors="ignore")
-#     reader=csv.reader(csv_file)
-#     next(reader)
-#     book_list=[]
+@api_view(['POST'])
+def upload_data(request):
+    file=request.FILES["file"]
+    content =file.read()
+    file_content=ContentFile(content)
+    file_name=fs.save(
+    "_tmp.csv" , file_content
+    )
+    tmp_file=fs.path(file_name)
+    csv_file=open(tmp_file,errors="ignore")
+    reader=csv.reader(csv_file)
+    next(reader)
+    book_list=[]
 
-#     for id_, row in enumerate(reader):
-#         (UserID,Location,Age
-#         )=row 
+    for id_, row in enumerate(reader):
+        (ISBN,Book,BookAuthor,YearOfPublication,Publisher,ImageURLS,ImageURLM,ImageURLL
+        )=row 
             
-#         book_list.append(
-#            userdata(
-#                 id=UserID,
-#                 Location=Location,
-#                 Age=Age
-#                 )
-#         )
+        book_list.append(
+           Books(
+                ISBN=ISBN,
+                Book_title=Book,
+                Book_Author=BookAuthor,
+                Year_of_Publication=YearOfPublication,
+                Publisher=Publisher,
+                img_url_S=ImageURLS,
+                img_url_M=ImageURLM,
+                img_url_L=ImageURLL
+                )
+        )
 
         
-#     userdata.objects.bulk_create(book_list)
+    Books.objects.bulk_create(book_list)
 
-#     return Response('uploaded')
+    return Response('uploaded')
 
-
+# {FIXME:change the value_count to 200,50}
 @api_view(['GET'])
 def recommentation(request,pk):
     books=Books.objects.all()
@@ -671,7 +688,7 @@ def recommentation(request,pk):
                 res_copy=res.copy()
                 final_recom.append(res_copy)
             except:
-                rs['title']=x[i]
+                res['title']=x[i]
                 res_copy=res.copy()
                 final_recom.append(res_copy)
     # {TODO: PURCHASE BASED RECOM } 
