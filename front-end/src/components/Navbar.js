@@ -11,9 +11,10 @@ import Avatar from "@mui/material/Avatar";
 import LinearProgress from '@mui/material/LinearProgress';
 
 const SearchBar = () => {
+
   let { searchvalue, booksearch } = useContext(UserContext);
 
-  const style = "m-3 w-full md:w-1/4 bg-blue-800";
+  const style = "relative m-3 w-full md:w-1/4 bg-blue-800";
 
   return (
     <SearchField
@@ -24,15 +25,17 @@ const SearchBar = () => {
       onSearchClick={booksearch}
     />
   );
+
 };
 
 const Navbar = ({ toggle }) => {
-  let { user, logoutUser,searchload } = useContext(UserContext);
+
+  let { user, searchload } = useContext(UserContext);
 
   const LeftNavbar = () => {
     return (
       <Link to="/">
-        <div class="w-40 h-20 cursor-pointer">
+        <div class="w-40 h-20 pt-2 cursor-pointer">
           <img src={COMPANYLOGO} alt="suyati-company-logo" />
         </div>
       </Link>
@@ -40,35 +43,21 @@ const Navbar = ({ toggle }) => {
   };
 
   const RightNavbar = () => {
-    if (!user) {
-      return (
+    return ( 
+      !user &&
         <div class="md:flex hidden space-x-2 justify-evenly">
           <Link to="/login">
-            <button class="mt-1 mr-4 px-8 py-4 text-blue-100 hover:bg-blue-600 font-semibold bg-blue-700 rounded-3xl drop-shadow">
+            <button class="mt-2 mr-4 px-8 py-4 text-blue-100 hover:bg-blue-600 font-semibold bg-blue-700 rounded-3xl drop-shadow">
               Login
             </button>
           </Link>
         </div>
-      );
-    } else {
-      return (
-        <div class="md:flex hidden justify-evenly">
-          <Link to="">
-            <button
-              onClick={logoutUser}
-              class="mt-1 mr-2 px-8 py-4 text-gray-800 hover:bg-gray-400 font-semibold bg-gray-200 rounded-3xl drop-shadow"
-            >
-              Logout
-            </button>
-          </Link>
-        </div>
-      );
-    }
+    );
   };
 
   const MiddleNavbar = () => {
-    let { user,cartcount} = useContext(UserContext);
 
+    let { user,cartcount} = useContext(UserContext);
      
     const StyledBadge = styled(Badge)(({ theme }) => ({
       "& .MuiBadge-badge": {
@@ -101,56 +90,61 @@ const Navbar = ({ toggle }) => {
         <div class="md:flex hidden font-semibold text-blue-800">
           <Link
             to="/orders"
-            class="px-10 py-5  hover:text-blue-400  rounded-3xl drop-shadow"
+            class="px-8 py-6  hover:text-blue-400  rounded-3xl drop-shadow"
           >
-            My Orders
+            Orders
           </Link>
 
           <Link
             to="/books"
-            class="px-10 py-5  hover:text-blue-400  rounded-3xl drop-shadow"
+            class="px-8 py-6  hover:text-blue-400  rounded-3xl drop-shadow"
           >
-            My Ratings
+            Ratings
+
           </Link>
 
-          <Link
-            to="/dashboard"
-            class="px-10 py-5  hover:text-blue-400  rounded-3xl drop-shadow"
-          >
-            <Avatar src="/broken-image.jpg" />
-          </Link>
-          {user && user.id ? (
-            <>
-              <Link
-                to="/cart"
-                class="px-10 py-5  hover:text-blue-400  rounded-3xl drop-shadow"
-              >
+          { user && <>  
+
+            <Link
+              to="/cart"
+              class="p-4"
+            >
                 <IconButton aria-label="cart">
-                <StyledBadge badgeContent={cartcount} color="secondary">
+                  <StyledBadge badgeContent={cartcount} color="secondary">
                     <ShoppingCartIcon />
                   </StyledBadge>
-                </IconButton> 
-              </Link>
-            </>
-          ) : (
-           null
-          )}
+                </IconButton>
+            </Link>
+
+            <Link
+              to="/dashboard"
+              class="pt-4 px-2 hover:text-blue-400 "
+            >
+
+            <Avatar src="/broken-image.jpg" />
+
+            </Link>
+
+
+          </> }
+
         </div>
       </>
     );
   };
 
   return (
-    <header class="bg-white border-b-2 drop-shadow-lg ">
-      {searchload?<>
-        <LinearProgress color="secondary" />
-      </>:null}
+
+    <header class="h-1/8 w-full bg-white border-b-2 drop-shadow-lg z-9">
       <div class="w-full h-30 justify-between mt-2 start-end p-2 max-w-full max-h-full flex space-x-10 md:w-auto md:justify-center mx-auto ">
         <LeftNavbar />
         <SearchBar />
         <MiddleNavbar />
         <RightNavbar />
       </div>
+      {searchload?<>
+        <LinearProgress color="secondary" />
+      </>:null}
     </header>
   );
 };

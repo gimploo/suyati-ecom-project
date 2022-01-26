@@ -103,11 +103,13 @@ const HomePage = () => {
   ];
 
   const captionStyle = {
-    fontSize: "2em",
+    fontSize: "1.5em",
     fontWeight: "bold",
   };
   return (
-    <div style={{ backgroundColor: "white" }}>
+
+    <div >
+
       <div class="bg-black border-2 h-auto text-center w-full">
         <Carousel
           data={data}
@@ -127,7 +129,8 @@ const HomePage = () => {
 
       {/* <h1 class='p-8 text-4 text-center font-bold text-blue-800'> Home page </h1> */}
 
-      <div className="rowbooks">
+    <div class='bg-yellow-400 p-10'>
+
         {initial ? (
           <>
             {sres[0] ? (

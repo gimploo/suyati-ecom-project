@@ -27,12 +27,17 @@ const UserInfoDump = ({ value }) => {
 
 const DashboardPage = () => {
   
-  const { user } = useContext(UserContext)
+  const { user, logoutUser } = useContext(UserContext)
 
   return ( 
    <>
-    <div class="bg-blue-800 p-20">
+    <div class="bg-blue-800 p-20 space-y-8">
       <UserInfoDump value={user} />
+
+      <button class='p-4 hover:bg-red-500 bg-red-600 font-semibold text-red-100 text-2xl rounded-lg w-1/2 h-20' onClick={logoutUser}> 
+        LOGOUT 
+      </button>
+
     </div>
    </>
   )

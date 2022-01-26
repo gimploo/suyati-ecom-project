@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "../Axios";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import { Button } from "@mui/material";
 import "../css/Cart.css";
+
 function Cart() {
   let { cartitems, user, itemadd } = useContext(UserContext);
   const [removed, setRemoved] = useState(false);
@@ -42,55 +43,82 @@ function Cart() {
     });
   };
   return (
-    <div>
+
+    <div class='p-10'>
+
+    {/* Cart */}
+    <div class='border-2 bg-white rounded-lg'>
+
+      <h2 class=' p-10 text-6xl font-semibold text-black w-full'> Your Cart </h2>
+
+    <div class='px-10 w-full'>
       {cartitems && cartitems[0] ? (
         <>
           {cartitems.map((item) => (
-            <>
-              <div className="cartproducts">
-                <img
-                  src={item.img}
-                  alt=""
-                  style={{ width: "150px", height: "200px" }}
-                ></img>
-                <h>{item.title}</h>
-                <h>{item.author}</h>
-                <h>{item.yearofpub}</h>
-                <h>{item.publisher}</h>
-              </div>
-              <button
-                onClick={() => {
-                  itemremove(item.isbn);
-                }}
-              >
-                Remove
-              </button>
-              <button
-                onClick={() => {
-                  incqty(item.id, "sub");
-                }}
-              >
-                -
-              </button>
-              {item.Qty}
-              <button
-                onClick={() => {
-                  incqty(item.id, "add");
-                }}
-              >
-                +
-              </button>
-            </>
+
+            <div class="border-4 p-7 w-full h-full flex space-x-8 font-light text-black text-4xl">
+
+				<div>
+					<img
+						class='rounded-lg p-4'
+						width="400"
+						height='300'
+						src={item.img}
+						alt=""
+					></img>
+				</div>
+			
+			<div>
+
+                <div class='h-1/2 border-2 space-y-4'>
+                  <div class='font-bold'>{item.title}</div>
+                  <div class='font-light'>- {item.author}</div>
+                </div>
+
+				<div>
+
+					<label class='font-normal'> Qty: 0{item.Qty % 10} </label>
+
+					<button class='p-2 text-black text-7xl ml-2'
+						onClick={() => {
+						incqty(item.id, "add");
+						}}
+					>  
+					+
+					</button>
+
+					<button class='p-2 text-black text-7xl ml-2'
+						onClick={() => {
+						incqty(item.id, "sub");
+						}}
+					> - </button>
+
+					<div>
+						<button class='bg-red-600 font-thin text-red-100 p-5 my-8 rounded-lg'
+							onClick={() => {
+							itemremove(item.isbn);
+							}}
+						> Delete </button>
+
+					</div>
+
+				</div>
+
+			</div>
+			</div>
+
           ))}
           <Link to={"/checkout"}>
-            <Button variant="contained" color="success">
-               checkout
-            </Button>
+			  <div class='bg-green-700 hover:bg-green-500 w-full flex justify-center align-center p-4 my-8 rounded-lg text-green-100 font-semibold text-4xl'>
+				  checkout
+			  </div>
           </Link>
         </>
       ) : (
-        <>Empty Cart</>
+          <Redirect to={"/"}></Redirect>
       )}
+    </div>
+    </div>
     </div>
   );
 }

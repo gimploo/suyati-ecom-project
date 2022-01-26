@@ -10,39 +10,67 @@ function CheckoutPage() {
         checkout(e);
     }
 
-  return (
-    <div>
-      <p>Please select your Payment Method:</p>
-      <form onSubmit={emptycart}>
-      <input type="radio" id="html" name="fav_language" value="HTML"></input> {" "}
-      <label for="html">COD</label>
-      <br /> {" "}
-      <input type="radio" id="css" name="fav_language" value="CSS"></input> {" "}
-      <label for="css">Card</label>
-      <br /> {" "}
-      {/* <Link to={'/manageorder'}> */}
+	return (
 
-      <input
-                  class="outline-none rounded p-2"
-                  type="text"
-                  placeholder="name"
-                  required
-                  name='ordername'
-                />
-                <input
-                  class="outline-none rounded p-2"
-                  type="text"
-                  placeholder="address"
-                  required
-                  name='address'
-                />
-      <input variant="contained" color="success" type="submit"
-            Place Order
-      />
-      {/* </Link> */}
-      </form>
+<div class="bg-gray-300">
+    <div class="py-12">
+        <div class="max-w-md mx-auto bg-white shadow-lg rounded-lg md:max-w-xl ">
+            <div class="md:flex ">
+                <div class="w-full p-4 px-5 py-5">
+                    <div class="flex flex-row">
+                        <h2 class="text-3xl font-semibold">Please fill your payment: </h2>
+                    </div>
+
+                    <div class="flex flex-row text-xs pt-6 pb-5"> 
+						<span class="font-bold">Information</span> 
+						<small class="text-gray-400 ml-1">></small> 
+						<span class="text-gray-400 ml-1">Shopping</span> 
+						<small class="text-gray-400 ml-1"></small> 
+						<span class="text-gray-400 ml-1">Payment</span> 
+					</div> 
+
+					<span>Customer Information</span>
+
+                    <div class="relative pb-5"> 
+						<input type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="E-mail"/> 
+							<span class="absolute text-blue-500 right-2 top-4 font-medium text-sm">Log out</span> 
+					</div> 
+					
+					<span>Shipping Address</span>
+
+                    <div class="grid md:grid-cols-2 md:gap-2"> 
+						<input type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="First name*"/> 
+						<input type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="Last name*"/> 
+					</div> 
+
+					<input type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="Company (optional)"/> 
+					<input type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="Address*"/> 
+					<input type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="Apartment, suite, etc. (optional)"/>
+
+                    <div class="grid md:grid-cols-3 md:gap-2"> 
+						<input type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="Zipcode*"/> 
+						<input type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="City*"/> 
+						<input type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="State*"/> 
+					</div> 
+
+					<input type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="Country*"/> 
+					<input type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="Phone Number*"/>
+
+                    <div class="flex justify-between items-center pt-2"> 
+
+						<button onSubmit={emptycart} type="submit" class="h-12 w-24 text-blue-500 text-xs font-medium">
+							Place Order
+						</button> 
+
+					</div>
+                </div>
+            </div>
+        </div>
     </div>
-  );
+</div>
+
+	);
+
 }
 
 export default CheckoutPage;
