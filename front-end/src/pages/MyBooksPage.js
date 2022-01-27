@@ -38,7 +38,7 @@ const MyBooksPage = () => {
           ) : (
             <div className="not_rated">
               <h1 style={{fontSize:"30px",marginBottom:"20px"}}>User Not Rated Yet</h1>
-              <Rating name="size-large" defaultValue={null} size="large" style={{marginLeft:"40px"}} readOnly/>
+              <Rating name="size-large" defaultValue={null} size="large" style={{marginLeft:"15px"}} readOnly/>
             </div>
           )}
           </>

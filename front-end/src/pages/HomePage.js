@@ -129,7 +129,7 @@ const HomePage = () => {
 
       {/* <h1 class='p-8 text-4 text-center font-bold text-blue-800'> Home page </h1> */}
 
-    <div class='bg-yellow-400 p-10'>
+    <div class=' p-10' style={{backgroundColor:"black"}}>
 
         {initial ? (
           <>
@@ -146,12 +146,12 @@ const HomePage = () => {
                         </h2>
                         <div
                           className="searchresults"
-                          style={{ backgroundColor: "#D3D3D3" }}
+                      
                         >
                           {sres.map((item, key) => (
                             <div
                               style={{
-                                backgroundColor: "#D3D3D3",
+                             
                                 padding: "20px",
                               }}
                             >

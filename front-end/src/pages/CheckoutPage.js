@@ -12,7 +12,7 @@ function CheckoutPage() {
 
 	return (
 
-<div class="bg-gray-300">
+<form class="bg-gray-300" onSubmit={emptycart}>
     <div class="py-12">
         <div class="max-w-md mx-auto bg-white shadow-lg rounded-lg md:max-w-xl ">
             <div class="md:flex ">
@@ -23,42 +23,25 @@ function CheckoutPage() {
 
                     <div class="flex flex-row text-xs pt-6 pb-5"> 
 						<span class="font-bold">Information</span> 
-						<small class="text-gray-400 ml-1">></small> 
+						<small class="text-gray-400 ml-1"></small> 
 						<span class="text-gray-400 ml-1">Shopping</span> 
 						<small class="text-gray-400 ml-1"></small> 
 						<span class="text-gray-400 ml-1">Payment</span> 
-					</div> 
-
-					<span>Customer Information</span>
-
-                    <div class="relative pb-5"> 
-						<input type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="E-mail"/> 
-							<span class="absolute text-blue-500 right-2 top-4 font-medium text-sm">Log out</span> 
 					</div> 
 					
 					<span>Shipping Address</span>
 
                     <div class="grid md:grid-cols-2 md:gap-2"> 
-						<input type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="First name*"/> 
-						<input type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="Last name*"/> 
+						<input type="text"  class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" name="ordername" placeholder="First name*"/> 
 					</div> 
+					<input type="text"  class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" name="address" placeholder="Address*"/> 
+			
 
-					<input type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="Company (optional)"/> 
-					<input type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="Address*"/> 
-					<input type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="Apartment, suite, etc. (optional)"/>
-
-                    <div class="grid md:grid-cols-3 md:gap-2"> 
-						<input type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="Zipcode*"/> 
-						<input type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="City*"/> 
-						<input type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="State*"/> 
-					</div> 
-
-					<input type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="Country*"/> 
-					<input type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="Phone Number*"/>
+					<input type="text"  class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="Phone Number*"/>
 
                     <div class="flex justify-between items-center pt-2"> 
 
-						<button onSubmit={emptycart} type="submit" class="h-12 w-24 text-blue-500 text-xs font-medium">
+						<button  type="submit" class="h-12 w-24 text-blue-500 text-xs font-medium">
 							Place Order
 						</button> 
 
@@ -67,7 +50,7 @@ function CheckoutPage() {
             </div>
         </div>
     </div>
-</div>
+</form>
 
 	);
 

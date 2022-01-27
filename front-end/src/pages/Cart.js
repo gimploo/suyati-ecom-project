@@ -25,7 +25,6 @@ function Cart() {
     const body = JSON.stringify({ isbn: isbn });
     axios.post(removeapi, body, config).then((res) => {
       setRemoved(true);
-      alert("removed");
     });
   };
   const incqty = (itemid, val) => {

@@ -25,6 +25,7 @@
     font-weight: 500;
     margin-left: 20px;
     margin-bottom: 50px;
+    color: white;
 }
 .trending_box{
     margin-bottom: 10px;
@@ -35,6 +36,7 @@
     margin: 10px;
     width: 250px;
     height: 500px;
+    color: white;
 } 
 .trending_icons{
     display: flex;
@@ -52,11 +54,13 @@
 .trending_skeleton{
     display: flex;
     justify-content: space-between;
+    
 }
 .skelton-box{
     display: flex;
     flex-direction: column;
     margin: 10px;
+    background-color: white;
 }
 .store-icons{
     display: flex;

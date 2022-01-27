@@ -27,6 +27,7 @@ urlpatterns = [
     path('api/recommentation/<int:pk>/',views.recommentation,name='recommentation'),
     path('api/upload',views.upload_data,name='upload'),
     
+    
    
 ]   
  

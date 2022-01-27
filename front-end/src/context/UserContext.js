@@ -78,6 +78,7 @@ export const UserProvider = ({ children }) => {
     setState(false);
   };
   const user_rating = () => {
+    setLoading(true);  
     axios
       .get(`api/user_rating/${userid}/`)
 
@@ -99,6 +100,7 @@ export const UserProvider = ({ children }) => {
     setCartItems(null);
     setLoading(true);
     setSearchload(false);
+    setRecomBook(null)
     localStorage.removeItem("user_id");
     history.replace("/");
   };

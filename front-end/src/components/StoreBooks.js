@@ -141,6 +141,7 @@ function StoreBooks() {
           count={100}
           page={page}
           onChange={loadmore}
+          style={{backgroundColor:"white"}}
           color="primary"
         />
       </div>

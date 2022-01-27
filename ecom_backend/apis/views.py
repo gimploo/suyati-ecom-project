@@ -110,56 +110,56 @@ def search(request):
 # {TODO: SMALL DATABASE CHANGE SCRIPT}
 @api_view(['GET'])
 def trending_books(request):
-    ratings=Rating.objects.all()
-    a=[]
-    b=[]
-    for item in ratings:
-        a=[item.user_id,item.isbn,item.rating]
-        b+=[a]
-    ratings_df=pd.DataFrame(b,columns=['user_id','ISBN','rating'])
-    rating_count=pd.DataFrame(ratings_df.groupby('ISBN')['rating'].count())
-    temp=rating_count.sort_values('rating',ascending=False).head()
-    li=[]
-    i=0
-    itr=len(temp.index)
-    while i<itr:
-        li.append(temp.index[i])
-        i+=1
-    temp=[]
-    res={}
-  
-    for val in li:
-
-        isbn=val
-        books=Books.objects.get(ISBN=isbn)
-        book_title=books.Book_title
-        book_auth=books.Book_Author
-        ISBN=books.ISBN
-        ID=books.id
-        img_L=books.img_url_L
-        res['id']=ID
-        res["title"]=book_title
-        res["author"]=book_auth
-        res["isbn"]=ISBN
-        res["img"]=str(img_L)
-        res_copy=res.copy()
-        temp.append(res_copy)
-            
-            
-    return Response(temp)
+    # ratings=Rating.objects.all()
+    # a=[]
+    # b=[]
+    # for item in ratings:
+    #     a=[item.user_id,item.isbn,item.rating]
+    #     b+=[a]
+    # ratings_df=pd.DataFrame(b,columns=['user_id','ISBN','rating'])
+    # rating_count=pd.DataFrame(ratings_df.groupby('ISBN')['rating'].count())
+    # temp=rating_count.sort_values('rating',ascending=False).head()
+    # li=[]
+    # i=0
+    # itr=len(temp.index)
+    # while i<itr:
+    #     li.append(temp.index[i])
+    #     i+=1
     # temp=[]
     # res={}
-    # ids=[507,889,1229,1586,1003]
-    # for x in ids:
-    #     book=Books.objects.get(id=x)
-    #     res['title']=book.Book_title
-    #     res['author']=book.Book_Author
-    #     res['img']=str(book.img_url_L)
-    #     res['isbn']=book.ISBN
-    #     res['id']=book.id
+  
+    # for val in li:
+
+    #     isbn=val
+    #     books=Books.objects.get(ISBN=isbn)
+    #     book_title=books.Book_title
+    #     book_auth=books.Book_Author
+    #     ISBN=books.ISBN
+    #     ID=books.id
+    #     img_L=books.img_url_L
+    #     res['id']=ID
+    #     res["title"]=book_title
+    #     res["author"]=book_auth
+    #     res["isbn"]=ISBN
+    #     res["img"]=str(img_L)
     #     res_copy=res.copy()
-    #     temp.append(res_copy)           
+    #     temp.append(res_copy)
+            
+            
     # return Response(temp)
+    temp=[]
+    res={}
+    ids=[507,889,1229,1586,1003]
+    for x in ids:
+        book=Books.objects.get(id=x)
+        res['title']=book.Book_title
+        res['author']=book.Book_Author
+        res['img']=str(book.img_url_L)
+        res['isbn']=book.ISBN
+        res['id']=book.id
+        res_copy=res.copy()
+        temp.append(res_copy)           
+    return Response(temp)
     
     
 #pagination for the whole books in our store 
@@ -618,34 +618,35 @@ def upload_data(request):
 
     return Response('uploaded')
 
-# {FIXME:change the value_count to 200,50}
+# {FIXME:change the value_count to 200,50,TEST USERS 10,25,3}
 @api_view(['GET'])
 def recommentation(request,pk):
-    books=Books.objects.all()
-    ratings=Rating.objects.all()
-    x=[]
-    y=[]
-    a=[]
-    b=[]
-    for item in books:
-        x=[item.id,item.ISBN,item.Book_title]
-        y+=[x]
-    books_df=pd.DataFrame(y,columns=['book_id','ISBN','title'])
-
-    for item in ratings:
-        a=[item.user_id,item.isbn,item.rating]
-        b+=[a]
-    ratings_df=pd.DataFrame(b,columns=['user_id','ISBN','rating'])
-    x = ratings_df['user_id'].value_counts() > 1
+    # books=Books.objects.all()
+    # ratings=Rating.objects.all()
+    # x=[]
+    # y=[]
+    # a=[]
+    # b=[]
+    # for item in books:
+    #     x=[item.id,item.ISBN,item.Book_title]
+    #     y+=[x]
+    # for item in ratings:
+    #     a=[item.user_id,item.isbn,item.rating]
+    #     b+=[a]
+    y=pd.read_csv("datas/Books.csv")
+    b=pd.read_csv("datas/Ratings.csv")
+    books_df=pd.DataFrame(y,columns=['ISBN','Book'])
+    ratings_df=pd.DataFrame(b,columns=['UserID','ISBN','BookRating'])
+    x = ratings_df['UserID'].value_counts() > 200
     y = x[x].index
-    ratings = ratings_df[ratings_df['user_id'].isin(y)]
+    ratings = ratings_df[ratings_df['UserID'].isin(y)]
     rating_with_books = ratings.merge(books_df, on='ISBN')
-    number_rating = rating_with_books.groupby('title')['rating'].count().reset_index()
-    number_rating.rename(columns= {'rating':'number_of_ratings'}, inplace=True)
-    final_rating = rating_with_books.merge(number_rating, on='title')
-    final_rating = final_rating[final_rating['number_of_ratings'] >= 1]
-    final_rating.drop_duplicates(['user_id','title'], inplace=True)
-    book_pivot = final_rating.pivot_table(columns='user_id', index='title', values="rating")
+    number_rating = rating_with_books.groupby('Book')['BookRating'].count().reset_index()
+    number_rating.rename(columns= {'BookRating':'number_of_ratings'}, inplace=True)
+    final_rating = rating_with_books.merge(number_rating, on='Book')
+    final_rating = final_rating[final_rating['number_of_ratings'] >= 50]
+    final_rating.drop_duplicates(['UserID','Book'], inplace=True)
+    book_pivot = final_rating.pivot_table(columns='UserID', index='ISBN', values="BookRating")
     book_pivot.fillna(0, inplace=True)
     book_sparse = csr_matrix(book_pivot)
     model = NearestNeighbors(algorithm='brute')
@@ -663,7 +664,7 @@ def recommentation(request,pk):
     except:
         return Response([])
     user_latest_rated_book=Books.objects.get(ISBN=user_book_isbn[0])
-    book_title.append(user_latest_rated_book.Book_title)
+    book_title.append(user_latest_rated_book.ISBN)
     for i in range(len(book_pivot)):
         if book_pivot.index[i]==book_title[0]:
             user_recom_index.append(i)
@@ -679,7 +680,7 @@ def recommentation(request,pk):
     for x in recommented:
         for i in range(len(recommented[0])):
             try:
-                book=Books.objects.get(Book_title=x[i])
+                book=Books.objects.get(ISBN=x[i])
                 res['title']=book.Book_title
                 res['author']=book.Book_Author
                 res['isbn']=book.ISBN
@@ -688,9 +689,10 @@ def recommentation(request,pk):
                 res_copy=res.copy()
                 final_recom.append(res_copy)
             except:
-                res['title']=x[i]
-                res_copy=res.copy()
-                final_recom.append(res_copy)
+                # res['title']=x[i]
+                # res_copy=[]
+                # res_copy=res.copy()
+                final_recom.append([])
     # {TODO: PURCHASE BASED RECOM } 
     # try:
         # user_ratings=Rating.objects.filter(user_id=pk).order_by('-id')[0]
@@ -739,8 +741,6 @@ def recommentation(request,pk):
     
     
     return Response(final_recom)
-
-
 
 
 

@@ -59,7 +59,7 @@ function RecomBook() {
           <>
             {nullrecom ? (
               <>
-                <h1 style={{ margin: "auto" }}>No Recommentations found</h1>
+                <h1 style={{ margin: "auto" ,color:"white"}}>No Recommentations found</h1>
               </>
             ) : (
               <>
