@@ -3,7 +3,7 @@ import { UserProvider } from './context/UserContext.js';
 import React, { useState } from 'react'
 import UserRoute from './utils/UserRoute'
 import Ratings from './pages/Ratings'
-import Cart from './pages/Cart'
+import Cart from './pages/CartPage'
 import Navbar from './components/Navbar';
 import LoginPage from './pages/LoginPage';
 import MyBooksPage from './pages/MyBooksPage'
