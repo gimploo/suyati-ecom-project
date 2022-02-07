@@ -104,7 +104,7 @@ DATABASES = {
         # 'NAME':'ecomdblive',
         # 'USER':'postgres',
         # 'PASSWORD':'awsdb123#',
-        # 'HOST':'database-1.cluster-ro-cbok3wjn6gxp.us-east-1.rds.amazonaws.com',
+        # 'HOST':'database-1-instance-1-us-east-1d.cbok3wjn6gxp.us-east-1.rds.amazonaws.com',
         # 'PORT':'5432'
 
 

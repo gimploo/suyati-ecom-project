@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import React, { useState, useEffect, useContext } from "react";
 import axios from "../Axios";
 import "../css/Rowbooks.css";
+import "../css/responsive.css";
 import { Link } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
@@ -85,6 +86,7 @@ function StoreBooks() {
                           Rate
                         </Button>
                       </Link>
+                      <div className='cart-btn'>
                       <Button
                         onClick={() => addcart(obj.id)}
                         disableRipple
@@ -92,6 +94,7 @@ function StoreBooks() {
                       >
                         <AddShoppingCartIcon className="carticon" />
                       </Button>
+                      </div>
                     </>
                   ) : (
                     <>

@@ -215,7 +215,7 @@ const HomePage = () => {
                     ) : (
                       <>
                         <div className="trending_box">
-                          <h2 className="trending_tit">TRENDING BOOKS</h2>
+                          <h2 className="trending_tit">Trending Books</h2>
                           <Rowbooks />
                         </div>
                         <div className="trending_box">

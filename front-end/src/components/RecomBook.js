@@ -76,7 +76,8 @@ function RecomBook() {
                               <Button variant="contained" color="success">
                                 Rate
                               </Button>
-                            </Link>
+                            </Link> 
+                            <div className="cart-btn">
                             <Button
                               onClick={() => addcart(obj.id)}
                               disableRipple
@@ -84,6 +85,7 @@ function RecomBook() {
                             >
                               <AddShoppingCartIcon className="carticon" />
                             </Button>
+                            </div>
                           </>
                         ) : null}
                       </div>

@@ -220,6 +220,7 @@ export const UserProvider = ({ children }) => {
     var address = e.target.address.value;
     {
       cartitems.map((itm) =>
+      
         items.item.push({
           id: `${itm.bookid}`,
           qty: `${itm.Qty}`,
@@ -228,7 +229,7 @@ export const UserProvider = ({ children }) => {
         })
       );
     }
-
+    console.log(items.item)
     const body = JSON.stringify({ products: items.item });
     const config = {
       headers: {

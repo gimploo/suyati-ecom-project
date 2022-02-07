@@ -9,6 +9,7 @@ import COMPANYLOGO from "../assets/images/Suyati-logo-01.svg";
 import UserContext from "../context/UserContext";
 import Avatar from "@mui/material/Avatar";
 import LinearProgress from '@mui/material/LinearProgress';
+import "../css/Navbar.css";
 
 const SearchBar = () => {
 
@@ -35,7 +36,7 @@ const Navbar = ({ toggle }) => {
   const LeftNavbar = () => {
     return (
       <Link to="/">
-        <div class="w-40 h-20 pt-2 cursor-pointer">
+        <div class="w-40 h-20 pt-2 cursor-pointer logo-head">
           <img src={COMPANYLOGO} alt="suyati-company-logo" />
         </div>
       </Link>
@@ -135,9 +136,9 @@ const Navbar = ({ toggle }) => {
 
   return (
 
-    <header class="h-1/8 w-full bg-white border-b-2 drop-shadow-lg z-9" style={{position:"fixed",zIndex:1}}>
+    <header class="h-1/8 w-full bg-white border-b-2 drop-shadow-lg z-9" >
       <div class="w-full h-30 justify-between mt-2 start-end p-2 max-w-full max-h-full flex space-x-10 md:w-auto md:justify-center mx-auto ">
-        <LeftNavbar />
+        <LeftNavbar/>
         <SearchBar />
         <MiddleNavbar />
         <RightNavbar />

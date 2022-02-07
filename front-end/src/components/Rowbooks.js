@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import "../css/Rowbooks.css";
+import "../css/responsive.css";
 import { Link, Redirect } from "react-router-dom";
 import axios from "../Axios";
 import UserContext from "../context/UserContext";
@@ -64,8 +65,10 @@ function Rowbooks() {
               <>
                 <div className="trending_books">
                   <img src={obj.img} alt="poster" className="img_books" />
-                  <h>{obj.title}</h>
+                  <div className='book_content'>
+                  <h>{obj.title}</h><br/>
                   <h>{obj.author}</h>
+                  </div>
                   <div className="trending_icons">
                     {user && user.id ? (
                       <>
@@ -74,13 +77,17 @@ function Rowbooks() {
                             Rate
                           </Button>
                         </Link>
+                        <div className='cart-btn'>
                         <Button
                           onClick={() => addcart(obj.id)}
                           disableRipple
                           style={{ backgroundColor: "white" }}
+                          
+                        
                         >
                           <AddShoppingCartIcon className="carticon" />
                         </Button>
+                        </div>
                       </>
                     ) : (
                       <>

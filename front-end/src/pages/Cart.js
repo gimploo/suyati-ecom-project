@@ -2,7 +2,9 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "../Axios";
 import { Link, Redirect } from "react-router-dom";
 import UserContext from "../context/UserContext";
-import { Button } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+import RemoveIcon from '@mui/icons-material/Remove';
+import AddIcon from '@mui/icons-material/Add';
 import "../css/Cart.css";
 
 function Cart() {
@@ -43,82 +45,64 @@ function Cart() {
   };
   return (
 
-    <div class='p-10'>
+    <div class=' flex justify-center align-center p-10 w-full'>
 
-    {/* Cart */}
-    <div class='border-2 bg-white rounded-lg'>
+		<div class='border-2 bg-white rounded-lg md:w-1/2'>
 
-      <h2 class=' p-10 text-6xl font-semibold text-black w-full'> Your Cart </h2>
+	
+			<div class='px-10 w-full'>
+				<div class="md:grid md:grid-cols-2 gap-2 ">
+					<div class="col-span-2 p-5">
+					<h2 class='p-8 text-xl md:text-4xl font-semibold text-yellow-500 bg-yellow-100 w-full rounded-md' style={{textAlign:"center"}}> Your Cart </h2>
 
-    <div class='px-10 w-full'>
-      {cartitems && cartitems[0] ? (
-        <>
-          {cartitems.map((item) => (
+						{cartitems && cartitems[0] ? ( <>
+							{cartitems.map((item) => (
 
-            <div class="border-4 p-7 w-full h-full flex space-x-8 font-light text-black text-4xl">
+								<div class='w-full px-2'>
 
-				<div>
-					<img
-						class='rounded-lg p-4'
-						width="400"
-						height='300'
-						src={item.img}
-						alt=""
-					></img>
-				</div>
-			
-			<div>
-
-                <div class='h-1/2 border-2 space-y-4'>
-                  <div class='font-bold'>{item.title}</div>
-                  <div class='font-light'>- {item.author}</div>
-                </div>
-
-				<div>
-
-					<label class='font-normal'> Qty: 0{item.Qty % 10} </label>
-
-					<button class='p-2 text-black text-7xl ml-2'
-						onClick={() => {
-						incqty(item.id, "add");
-						}}
-					>  
-					+
-					</button>
-
-					<button class='p-2 text-black text-7xl ml-2'
-						onClick={() => {
-						incqty(item.id, "sub");
-						}}
-					> - </button>
-
-					<div>
-						<button class='bg-red-600 font-thin text-red-100 p-5 my-8 rounded-lg'
-							onClick={() => {
-							itemremove(item.isbn);
-							}}
-						> Delete </button>
-
+									<div class="flex justify-between items-center mt-6 pt-6">
+										<div class="flex items-center"> <img src={item.img} width="60" class="rounded-md "/>
+											<div class="flex flex-col ml-3"> <span class="md:text-md font-medium">{item.title}</span> <span class="text-xs font-light text-gray-400">#{item.isbn}</span> </div>
+										</div>
+										<div class="flex justify-center items-center">
+											<div class="pr-8 flex "> 
+												<button onClick={() => { incqty(item.id, "sub"); }} ><RemoveIcon/></button>
+												<input type="text" class="focus:outline-none bg-gray-100 border h-6 w-8 rounded text-sm px-2 mx-2" value={(item.Qty % 10 == 0) ? () => { itemremove(item.isbn); } : (item.Qty % 10)}/> 
+												<button onClick={() => { incqty(item.id, "add"); }} ><AddIcon/></button>
+											</div>
+                      <button onClick={() => { itemremove(item.isbn);}}>
+                      <DeleteIcon style={{color:"crimson"}}/>
+                      </button>
+                      
+											<div> 
+												<i class="fa fa-close text-xs font-medium"></i> 
+											</div>
+                      
+										</div>
+									</div>
+                  
+									<hr class='mt-4 p-0 b-8'/>
+								</div>
+							))}
+							<Link to={"/checkout"}>
+								<div class='bg-green-700 hover:bg-green-500 w-full flex justify-center align-center p-4 my-8 rounded-lg text-green-100 font-semibold text-2xl'>
+									checkout
+								</div>
+							</Link>
+						</>) : (
+							// <Redirect to={"/"}></Redirect>
+							<>
+								<div class='flex justify-center align-center'>
+									<img src='http://bookworldranchi.com/assets/website/images/empty-cart.png'/>
+								</div>
+							</>
+						)}
 					</div>
-
 				</div>
-
 			</div>
-			</div>
+		</div>
+	</div>
 
-          ))}
-          <Link to={"/checkout"}>
-			  <div class='bg-green-700 hover:bg-green-500 w-full flex justify-center align-center p-4 my-8 rounded-lg text-green-100 font-semibold text-4xl'>
-				  checkout
-			  </div>
-          </Link>
-        </>
-      ) : (
-          <Redirect to={"/"}></Redirect>
-      )}
-    </div>
-    </div>
-    </div>
   );
 }
 
