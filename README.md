@@ -14,4 +14,4 @@
 
 ### 3. ML 
 1. cd ML/
-2. python ml.py
+2. python ML_CollabFiltering.py

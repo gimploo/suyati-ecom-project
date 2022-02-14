@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import Button from "@mui/material/Button";
 import Skeleton from "@mui/material/Skeleton";
 import "../css/Rowbooks.css";
+import "../css/responsive.css";
+import "../css/bookcard.css";
 import Rating from "@mui/material/Rating";
 import UserContext from "../context/UserContext";
 import Alert from "@mui/material/Alert";
@@ -81,7 +83,7 @@ function Ratings(props) {
           Rate Book
         </h1>
       </div>
-      <div className="rated_outerbox1">
+      <div className="rated_outerbox_rate">
         {!loading ? (
           <>
             <div className="container">
@@ -117,7 +119,7 @@ function Ratings(props) {
                   </div>
 
                   <div className="book_horiz">
-                    <h2 className="book_tit">Ratings - </h2>
+                    <h2 className="book_tit1">Ratings - </h2>
                     {isbns.includes(isbn) ? (
                       <>
                         {isbns.map((obj) => (
@@ -127,13 +129,13 @@ function Ratings(props) {
                                 {rating.map((item) => (
                                   <>
                                     {item.book_isbn == obj ? (
-                                      <>
+                                      <div className='stars'>
                                         <Rating
                                           name="read-only"
                                           value={item.rating / 2}
                                           disabled
                                         />
-                                      </>
+                                      </div>
                                     ) : null}
                                   </>
                                 ))}
@@ -144,7 +146,7 @@ function Ratings(props) {
                       </>
                     ) : (
                       <>
-                        <p style={{ marginTop: "5px", marginLeft: "10px" }}>
+                        <p style={{ marginTop: "5px", marginLeft: "10px" }} className="stars">
                           <Rating
                             name="customized-10"
                             value={value}
@@ -163,6 +165,7 @@ function Ratings(props) {
                         variant="contained"
                         color="error"
                         style={{ marginTop: "20px" }}
+                        className="rate-btn"
                       >
                         Alredy Rated
                       </Button>
@@ -173,7 +176,8 @@ function Ratings(props) {
                         variant="contained"
                         color="success"
                         onClick={submitrating}
-                        style={{ marginTop: "20px", width: "400px" }}
+                        style={{ marginTop: "20px"}}
+                        className="rate-btn"
                       >
                         Submit
                       </Button>

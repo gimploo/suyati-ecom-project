@@ -135,17 +135,16 @@ const Navbar = ({ toggle }) => {
   };
 
   return (
-
     <header class="h-1/8 w-full bg-white border-b-2 drop-shadow-lg z-9" >
+    {searchload?<>
+      <LinearProgress color="secondary" />
+    </>:null}
       <div class="w-full h-30 justify-between mt-2 start-end p-2 max-w-full max-h-full flex space-x-10 md:w-auto md:justify-center mx-auto ">
         <LeftNavbar/>
         <SearchBar />
         <MiddleNavbar />
         <RightNavbar />
       </div>
-      {searchload?<>
-        <LinearProgress color="secondary" />
-      </>:null}
     </header>
   );
 };

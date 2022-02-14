@@ -34,7 +34,25 @@
     .cart-btn{
         margin: 5px;
     }
+    
+    .book_img{
+        display: flex;
+        flex-direction: column;
+    }
+    .book_img img{
+        margin-left: 30px;
+        margin-bottom: 10px;
+    }
+    .book_tit1{
+        display: none;
 
+    }
+    .stars{
+        padding-top: 20px;
+    }
+    .rate-btn{
+        width: 200px;
+    }
 
 
 } 
