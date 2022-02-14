@@ -12,4 +12,6 @@
 2. npm install 
 3. npm start 
 
-
+### 3. ML 
+1. cd ML/
+2. python ml.py
